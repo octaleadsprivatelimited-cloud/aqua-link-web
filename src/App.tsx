@@ -11,6 +11,13 @@ import Cart from "./pages/Cart";
 import Blog from "./pages/Blog";
 import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
+import AdminLayout from "./components/admin/AdminLayout";
+import AdminDashboard from "./pages/admin/Dashboard";
+import ProductsList from "./pages/admin/ProductsList";
+import ProductForm from "./pages/admin/ProductForm";
+import OrdersPlaceholder from "./pages/admin/OrdersPlaceholder";
+import CustomersPlaceholder from "./pages/admin/CustomersPlaceholder";
+import SettingsPlaceholder from "./pages/admin/SettingsPlaceholder";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +35,18 @@ const App = () => (
           <Route path="/cart" element={<Cart />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/faq" element={<FAQ />} />
+
+          {/* Admin Routes */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="products" element={<ProductsList />} />
+            <Route path="products/new" element={<ProductForm />} />
+            <Route path="products/edit/:id" element={<ProductForm />} />
+            <Route path="orders" element={<OrdersPlaceholder />} />
+            <Route path="customers" element={<CustomersPlaceholder />} />
+            <Route path="settings" element={<SettingsPlaceholder />} />
+          </Route>
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

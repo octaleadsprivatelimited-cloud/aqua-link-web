@@ -3,7 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, Plus, X, Save } from "lucide-react";
 import { useProductStore } from "@/stores/productStore";
 import { categories } from "@/data/categories";
-import { Product } from "@/data/products";
+import type { Product } from "@/data/products";
+
+type StockStatus = "in_stock" | "low_stock" | "out_of_stock";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -21,7 +23,7 @@ const emptyProduct = {
   specifications: {} as Record<string, string>,
   price: { selling: 0, original: 0, discount: 0 },
   images: ["/placeholder.svg"],
-  stock: "in_stock" as const,
+  stock: "in_stock" as StockStatus,
   warranty: "1 Year Comprehensive",
   rating: 0,
   reviewCount: 0,
@@ -269,7 +271,7 @@ export default function ProductForm() {
                 <select
                   id="stock"
                   value={form.stock}
-                  onChange={(e) => setForm((f) => ({ ...f, stock: e.target.value as Product["stock"] }))}
+                  onChange={(e) => setForm((f) => ({ ...f, stock: e.target.value as StockStatus }))}
                   className="h-10 w-full rounded-md border bg-background px-3 text-sm"
                 >
                   <option value="in_stock">In Stock</option>
