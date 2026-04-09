@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ArrowLeft, Shield, Droplets, Clock, Award, Wrench, Package, Calendar, ChevronDown, ChevronUp, Star, Users, FlaskConical, UserCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getFeaturedProducts } from "@/data/products";
+import { useProductStore } from "@/stores/productStore";
 import ProductCard from "@/components/products/ProductCard";
 import Layout from "@/components/layout/Layout";
 import heroSlide1 from "@/assets/hero-slide-1.jpg";
@@ -124,7 +124,7 @@ const faqs = [
 ];
 
 export default function Index() {
-  const featured = getFeaturedProducts();
+  const featured = useProductStore((s) => s.getFeaturedProducts());
   const [currentSlide, setCurrentSlide] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 

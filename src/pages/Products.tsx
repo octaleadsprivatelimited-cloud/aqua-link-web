@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { Search, SlidersHorizontal, X } from "lucide-react";
-import { products } from "@/data/products";
+import { useProductStore } from "@/stores/productStore";
 import { categories } from "@/data/categories";
 import ProductCard from "@/components/products/ProductCard";
 import Layout from "@/components/layout/Layout";
@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export default function Products() {
+  const products = useProductStore((s) => s.products);
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState("");
   const [showFilters, setShowFilters] = useState(false);
