@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { Star, ShoppingCart, ArrowLeft, Check, Shield } from "lucide-react";
-import { getProductBySlug, getFeaturedProducts } from "@/data/products";
+import { useProductStore } from "@/stores/productStore";
 import { useCartStore } from "@/stores/cartStore";
 import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/products/ProductCard";
@@ -8,6 +8,7 @@ import Layout from "@/components/layout/Layout";
 
 export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
+  const { getProductBySlug, getFeaturedProducts } = useProductStore();
   const product = getProductBySlug(slug || "");
   const addItem = useCartStore((s) => s.addItem);
   const related = getFeaturedProducts().filter((p) => p.slug !== slug).slice(0, 4);
