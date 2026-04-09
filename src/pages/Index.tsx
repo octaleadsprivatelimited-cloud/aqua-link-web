@@ -124,7 +124,8 @@ const faqs = [
 ];
 
 export default function Index() {
-  const featured = useProductStore((s) => s.getFeaturedProducts());
+  const products = useProductStore((s) => s.products);
+  const featured = products.slice(0, 4);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 

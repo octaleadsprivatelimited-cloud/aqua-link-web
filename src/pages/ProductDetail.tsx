@@ -8,10 +8,10 @@ import Layout from "@/components/layout/Layout";
 
 export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
-  const { getProductBySlug, getFeaturedProducts } = useProductStore();
-  const product = getProductBySlug(slug || "");
+  const products = useProductStore((s) => s.products);
+  const product = products.find((p) => p.slug === (slug || ""));
   const addItem = useCartStore((s) => s.addItem);
-  const related = getFeaturedProducts().filter((p) => p.slug !== slug).slice(0, 4);
+  const related = products.filter((p) => p.slug !== slug).slice(0, 4);
 
   if (!product) {
     return (
