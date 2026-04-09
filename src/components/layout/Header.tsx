@@ -1,7 +1,24 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, ShoppingCart, Search, ChevronDown, User } from "lucide-react";
+import { Menu, X, ShoppingCart, Search, ChevronDown, ChevronRight, User } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
+import { categories } from "@/data/categories";
+
+import megaRo from "@/assets/mega-ro.jpg";
+import megaUv from "@/assets/mega-uv.jpg";
+import megaGravity from "@/assets/mega-gravity.jpg";
+import megaFilters from "@/assets/mega-filters.jpg";
+import megaCommercial from "@/assets/mega-commercial.jpg";
+import megaAccessories from "@/assets/mega-accessories.jpg";
+
+const categoryImages: Record<string, string> = {
+  "ro-purifiers": megaRo,
+  "uv-purifiers": megaUv,
+  "gravity-purifiers": megaGravity,
+  "filters-cartridges": megaFilters,
+  commercial: megaCommercial,
+  accessories: megaAccessories,
+};
 
 const navLinks = [
   { label: "Products", to: "/products", hasDropdown: true },
@@ -14,11 +31,23 @@ const navLinks = [
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [megaOpen, setMegaOpen] = useState(false);
+  const [hoveredCat, setHoveredCat] = useState(categories[0]?.slug || "");
   const totalItems = useCartStore((s) => s.totalItems());
+  const megaTimeout = useRef<ReturnType<typeof setTimeout>>();
+
+  const openMega = () => {
+    clearTimeout(megaTimeout.current);
+    setMegaOpen(true);
+  };
+  const closeMega = () => {
+    megaTimeout.current = setTimeout(() => setMegaOpen(false), 200);
+  };
+
+  const activeCat = categories.find((c) => c.slug === hoveredCat) || categories[0];
 
   return (
     <header className="sticky top-0 z-50">
-      {/* Main nav bar - dark navy like ZeroB */}
       <div className="bg-navy">
         <div className="container flex items-center justify-between h-14 md:h-16">
           {/* Logo */}
@@ -39,7 +68,12 @@ export default function Header() {
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-0.5">
             {navLinks.map((link, i) => (
-              <span key={link.to} className="flex items-center">
+              <span
+                key={link.to}
+                className="flex items-center"
+                onMouseEnter={link.hasDropdown ? openMega : undefined}
+                onMouseLeave={link.hasDropdown ? closeMega : undefined}
+              >
                 {i > 0 && (
                   <span className="text-primary-foreground/30 mx-0.5">|</span>
                 )}
@@ -54,9 +88,8 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Right side: search, user, cart */}
+          {/* Right side */}
           <div className="flex items-center gap-1">
-            {/* Search bar (desktop) */}
             <div className="hidden md:flex items-center bg-primary-foreground/10 rounded-full px-3 py-1.5 border border-primary-foreground/20">
               <input
                 type="text"
@@ -65,8 +98,6 @@ export default function Header() {
               />
               <Search className="h-4 w-4 text-primary-foreground/60" />
             </div>
-
-            {/* Search icon (mobile) */}
             <button
               onClick={() => setSearchOpen(!searchOpen)}
               className="md:hidden p-2 text-primary-foreground/80 hover:text-primary-foreground"
@@ -74,23 +105,17 @@ export default function Header() {
             >
               <Search className="h-5 w-5" />
             </button>
-
-            {/* User icon */}
             <button className="p-2 text-primary-foreground/80 hover:text-primary-foreground">
               <User className="h-5 w-5" />
             </button>
-
-            {/* Cart */}
             <Link to="/cart" className="relative p-2 text-primary-foreground/80 hover:text-primary-foreground">
               <ShoppingCart className="h-5 w-5" />
               {totalItems > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 h-4.5 w-4.5 rounded-full bg-accent text-accent-foreground text-[10px] font-bold flex items-center justify-center min-w-[18px] h-[18px]">
+                <span className="absolute -top-0.5 -right-0.5 rounded-full bg-accent text-accent-foreground text-[10px] font-bold flex items-center justify-center min-w-[18px] h-[18px]">
                   {totalItems}
                 </span>
               )}
             </Link>
-
-            {/* Mobile menu toggle */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="lg:hidden p-2 text-primary-foreground/80 hover:text-primary-foreground"
@@ -102,7 +127,86 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile search bar */}
+      {/* ===== MEGA DROPDOWN ===== */}
+      {megaOpen && (
+        <div
+          className="hidden lg:block absolute left-0 right-0 z-50 bg-background border-b border-border shadow-xl animate-fade-in"
+          onMouseEnter={openMega}
+          onMouseLeave={closeMega}
+        >
+          <div className="container py-6">
+            <div className="flex gap-0">
+              {/* Left: category list */}
+              <div className="w-64 border-r border-border pr-4 space-y-0.5">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3 px-3">
+                  Categories
+                </p>
+                {categories.map((cat) => (
+                  <Link
+                    key={cat.slug}
+                    to={`/products?category=${cat.slug}`}
+                    onMouseEnter={() => setHoveredCat(cat.slug)}
+                    onClick={() => setMegaOpen(false)}
+                    className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                      hoveredCat === cat.slug
+                        ? "bg-primary text-primary-foreground"
+                        : "text-foreground hover:bg-secondary"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>{cat.icon}</span>
+                      {cat.name}
+                    </span>
+                    <ChevronRight className="h-3.5 w-3.5 opacity-50" />
+                  </Link>
+                ))}
+                <div className="pt-3 mt-3 border-t border-border">
+                  <Link
+                    to="/products"
+                    onClick={() => setMegaOpen(false)}
+                    className="flex items-center gap-2 px-3 py-2 text-sm font-semibold text-primary hover:underline"
+                  >
+                    View All Products
+                    <ChevronRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </div>
+
+              {/* Right: image + description */}
+              <div className="flex-1 pl-8 flex gap-8 items-start">
+                <div className="flex-1">
+                  <h3 className="font-heading font-bold text-lg text-foreground mb-1">
+                    {activeCat.name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                    {activeCat.description}
+                  </p>
+                  <Link
+                    to={`/products?category=${activeCat.slug}`}
+                    onClick={() => setMegaOpen(false)}
+                    className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
+                  >
+                    Explore {activeCat.name}
+                    <ChevronRight className="h-4 w-4" />
+                  </Link>
+                </div>
+                <div className="w-64 h-48 rounded-xl overflow-hidden bg-secondary shrink-0">
+                  <img
+                    src={categoryImages[activeCat.slug] || megaRo}
+                    alt={activeCat.name}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    width={256}
+                    height={192}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile search */}
       {searchOpen && (
         <div className="md:hidden bg-navy border-t border-primary-foreground/10 px-4 py-3">
           <div className="flex items-center bg-primary-foreground/10 rounded-full px-3 py-2 border border-primary-foreground/20">
@@ -131,6 +235,23 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
+            {/* Mobile category sub-links */}
+            <div className="px-4 pt-2 pb-3 space-y-1">
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                Categories
+              </p>
+              {categories.map((cat) => (
+                <Link
+                  key={cat.slug}
+                  to={`/products?category=${cat.slug}`}
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-2 px-3 py-2 text-sm text-foreground hover:bg-secondary rounded-md"
+                >
+                  <span>{cat.icon}</span>
+                  {cat.name}
+                </Link>
+              ))}
+            </div>
             <a
               href="https://wa.me/919985850777"
               target="_blank"
