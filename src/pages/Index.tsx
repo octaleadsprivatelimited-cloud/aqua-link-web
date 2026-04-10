@@ -175,7 +175,7 @@ export default function Index() {
                     <Button
                       size="lg"
                       variant="outline"
-                      className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10 font-heading font-semibold rounded-full px-8"
+                      className="border-primary-foreground text-primary-foreground bg-primary-foreground/20 hover:bg-primary-foreground/30 font-heading font-semibold rounded-full px-8"
                     >
                       {slide.cta}
                     </Button>
