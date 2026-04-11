@@ -11,7 +11,8 @@ import { Input } from "@/components/ui/input";
 export default function Products() {
   const products = useProductStore((s) => s.products);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [search, setSearch] = useState("");
+  const initialSearch = searchParams.get("search") || "";
+  const [search, setSearch] = useState(initialSearch);
   const [showFilters, setShowFilters] = useState(false);
   const activeCategory = searchParams.get("category") || "";
   const [sort, setSort] = useState("popular");
