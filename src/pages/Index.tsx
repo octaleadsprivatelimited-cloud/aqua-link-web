@@ -437,22 +437,39 @@ export default function Index() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-12 md:py-16 bg-surface">
+      {/* Testimonials — grid layout */}
+      <section className="py-14 md:py-20 bg-background">
         <div className="container">
-          <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground text-center mb-8">
-            Testimonials
-          </h2>
+          <div className="text-center mb-10">
+            <p className="text-accent font-heading font-semibold text-sm uppercase tracking-wider mb-2">What Our Customers Say</p>
+            <h2 className="font-heading font-bold text-2xl md:text-4xl text-foreground">
+              Testimonials
+            </h2>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((t, i) => (
               <div
                 key={i}
-                className="bg-card rounded-xl p-6 shadow-card border"
+                className="bg-card rounded-2xl p-6 md:p-8 shadow-card border relative"
               >
-                <p className="text-sm text-foreground leading-relaxed mb-4 italic">
-                  "{t.text}"
+                <div className="text-accent text-5xl font-serif leading-none mb-3 opacity-30">"</div>
+                <p className="text-sm text-foreground leading-relaxed mb-6">
+                  {t.text}
                 </p>
-                <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-navy flex items-center justify-center text-primary-foreground font-heading font-bold text-sm">
+                <div className="flex gap-0.5 mb-4">
+                  {Array.from({ length: 5 }).map((_, j) => (
+                    <Star
+                      key={j}
+                      className={`h-4 w-4 ${
+                        j < t.rating
+                          ? "fill-accent text-accent"
+                          : "text-border"
+                      }`}
+                    />
+                  ))}
+                </div>
+                <div className="flex items-center gap-3 pt-4 border-t border-border">
+                  <div className="h-11 w-11 rounded-full bg-navy flex items-center justify-center text-primary-foreground font-heading font-bold text-sm">
                     {t.name.charAt(0)}
                   </div>
                   <div>
@@ -461,18 +478,6 @@ export default function Index() {
                     </p>
                     <p className="text-xs text-muted-foreground">{t.location}</p>
                   </div>
-                </div>
-                <div className="flex gap-0.5 mt-3">
-                  {Array.from({ length: 5 }).map((_, j) => (
-                    <Star
-                      key={j}
-                      className={`h-3.5 w-3.5 ${
-                        j < t.rating
-                          ? "fill-accent text-accent"
-                          : "text-border"
-                      }`}
-                    />
-                  ))}
                 </div>
               </div>
             ))}
