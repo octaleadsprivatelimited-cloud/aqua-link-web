@@ -94,8 +94,8 @@ export default function Cart() {
                   <span>₹{totalPrice().toLocaleString("en-IN")}</span>
                 </div>
               </div>
-              <Button size="lg" className="w-full mt-6 bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90 font-heading font-semibold" onClick={() => setStep("checkout")}>
-                Proceed to Checkout
+              <Button size="lg" className="w-full mt-6 bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90 font-heading font-semibold" onClick={handleCheckout}>
+                Order via WhatsApp
               </Button>
               <Button variant="ghost" size="sm" className="w-full mt-2 text-destructive" onClick={clearCart}>
                 Clear Cart

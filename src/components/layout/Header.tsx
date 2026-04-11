@@ -239,45 +239,61 @@ export default function Header() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="lg:hidden fixed inset-0 top-14 z-40 bg-background animate-fade-in">
-          <nav className="container flex flex-col py-6 gap-1">
+        <div className="lg:hidden fixed inset-0 top-14 z-40 bg-background/95 backdrop-blur-sm animate-fade-in overflow-y-auto">
+          <nav className="container flex flex-col py-4 gap-0.5">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
                 onClick={() => setMenuOpen(false)}
-                className="px-4 py-3 text-base font-medium text-foreground hover:text-accent hover:bg-secondary rounded-lg transition-colors"
+                className="flex items-center justify-between px-4 py-3.5 text-base font-medium text-foreground hover:text-accent border-b border-border/50 transition-colors"
               >
                 {link.label}
+                <ChevronRight className="h-4 w-4 text-muted-foreground" />
               </Link>
             ))}
-            {/* Mobile category sub-links */}
-            <div className="px-4 pt-2 pb-3 space-y-1">
-              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                Categories
+
+            {/* Categories */}
+            <div className="mt-4 px-4">
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+                Shop by Category
               </p>
-              {categories.map((cat) => (
-                <Link
-                  key={cat.slug}
-                  to={`/products?category=${cat.slug}`}
-                  onClick={() => setMenuOpen(false)}
-                  className="flex items-center gap-2 px-3 py-2 text-sm text-foreground hover:bg-secondary rounded-md"
-                >
-                  <span>{cat.icon}</span>
-                  {cat.name}
-                </Link>
-              ))}
-            </div>
-            <a
-              href="https://wa.me/919985850777"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 mx-4"
-            >
-              <div className="w-full py-3 px-4 bg-whatsapp text-whatsapp-foreground rounded-lg text-center font-medium">
-                WhatsApp Us — +91 9985850777
+              <div className="grid grid-cols-2 gap-2">
+                {categories.map((cat) => (
+                  <Link
+                    key={cat.slug}
+                    to={`/products?category=${cat.slug}`}
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center gap-2 px-3 py-3 text-sm text-foreground bg-secondary/50 hover:bg-secondary rounded-lg transition-colors"
+                  >
+                    <span className="text-base">{cat.icon}</span>
+                    <span className="truncate">{cat.name}</span>
+                  </Link>
+                ))}
               </div>
-            </a>
+            </div>
+
+            {/* Actions */}
+            <div className="mt-6 px-4 space-y-3">
+              <Link
+                to="/cart"
+                onClick={() => setMenuOpen(false)}
+                className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-navy text-primary-foreground rounded-lg text-center font-medium"
+              >
+                <ShoppingCart className="h-4 w-4" />
+                View Cart {totalItems > 0 && `(${totalItems})`}
+              </Link>
+              <a
+                href="https://wa.me/919985850777"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <div className="w-full py-3 px-4 bg-whatsapp text-whatsapp-foreground rounded-lg text-center font-medium">
+                  WhatsApp Us — +91 9985850777
+                </div>
+              </a>
+            </div>
           </nav>
         </div>
       )}
