@@ -94,10 +94,10 @@ const testimonials = [
 ];
 
 const stats = [
-  { value: "98%", label: "Customer Satisfaction" },
-  { value: "10+", label: "Years of Experience" },
-  { value: "10,000+", label: "Happy Customers" },
-  { value: "50+", label: "Certified Engineers" },
+  { icon: Users, value: "10,000+", label: "Happy Customers" },
+  { icon: FlaskConical, value: "98%", label: "Customer Satisfaction" },
+  { icon: Award, value: "10+", label: "Years of Experience" },
+  { icon: UserCheck, value: "50+", label: "Certified Engineers" },
 ];
 
 const faqs = [
@@ -336,31 +336,25 @@ export default function Index() {
       </section>
 
       {/* Best Sellers */}
-      <section className="py-12 md:py-16 bg-background">
+      <section className="py-14 md:py-20 bg-surface">
         <div className="container">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground">
-                Best Sellers
-              </h2>
-              <p className="text-muted-foreground mt-1 text-sm">
-                Our most popular water purifiers
-              </p>
-            </div>
-            <Link to="/products">
-              <Button variant="outline" size="sm" className="hidden sm:inline-flex rounded-full">
-                View All <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
+          <div className="text-center mb-10">
+            <p className="text-accent font-heading font-semibold text-sm uppercase tracking-wider mb-2">Top Picks</p>
+            <h2 className="font-heading font-bold text-2xl md:text-4xl text-foreground">
+              Our Best Sellers
+            </h2>
+            <p className="text-muted-foreground mt-2 text-sm max-w-md mx-auto">
+              Trusted by thousands of families — our most popular water purifiers
+            </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featured.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
-          <div className="mt-8 text-center sm:hidden">
+          <div className="mt-10 text-center">
             <Link to="/products">
-              <Button variant="outline" className="rounded-full">
+              <Button variant="outline" className="rounded-full px-8 font-heading font-semibold border-foreground text-foreground hover:bg-foreground hover:text-background">
                 View All Products <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
@@ -401,33 +395,38 @@ export default function Index() {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-12 md:py-16 bg-background">
-        <div className="container max-w-3xl">
-          <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground text-center mb-8">
-            Frequently Asked Questions
-          </h2>
-          <div className="space-y-3">
+      {/* FAQ Section — two-column like ZeroB */}
+      <section className="py-14 md:py-20 bg-surface">
+        <div className="container">
+          <div className="text-center mb-10">
+            <p className="text-accent font-heading font-semibold text-sm uppercase tracking-wider mb-2">Got Questions?</p>
+            <h2 className="font-heading font-bold text-2xl md:text-4xl text-foreground">
+              Frequently Asked Questions
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 max-w-5xl mx-auto">
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className="border rounded-lg overflow-hidden"
+                className="border-b border-border"
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-surface transition-colors"
+                  className="w-full flex items-center justify-between py-4 text-left group"
                 >
-                  <span className="font-heading font-medium text-sm md:text-base text-foreground pr-4">
+                  <span className="font-heading font-medium text-sm md:text-base text-foreground pr-4 group-hover:text-accent transition-colors">
                     {faq.q}
                   </span>
-                  {openFaq === i ? (
-                    <ChevronUp className="h-5 w-5 text-accent shrink-0" />
-                  ) : (
-                    <ChevronDown className="h-5 w-5 text-muted-foreground shrink-0" />
-                  )}
+                  <span className={`shrink-0 h-7 w-7 rounded-full flex items-center justify-center transition-colors ${openFaq === i ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>
+                    {openFaq === i ? (
+                      <ChevronUp className="h-4 w-4" />
+                    ) : (
+                      <ChevronDown className="h-4 w-4" />
+                    )}
+                  </span>
                 </button>
                 {openFaq === i && (
-                  <div className="px-5 pb-4 text-sm text-muted-foreground leading-relaxed animate-fade-in">
+                  <div className="pb-4 text-sm text-muted-foreground leading-relaxed animate-fade-in">
                     {faq.a}
                   </div>
                 )}
@@ -481,13 +480,16 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Stats Counter */}
-      <section className="py-10 md:py-14 bg-navy text-primary-foreground">
+      {/* Stats Counter — with icons */}
+      <section className="py-12 md:py-16 bg-navy text-primary-foreground">
         <div className="container">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((stat, i) => (
-              <div key={i}>
-                <p className="font-heading font-extrabold text-3xl md:text-4xl mb-1">
+              <div key={i} className="text-center flex flex-col items-center gap-3 p-4">
+                <div className="h-14 w-14 rounded-full bg-primary-foreground/10 border border-primary-foreground/20 flex items-center justify-center">
+                  <stat.icon className="h-6 w-6" />
+                </div>
+                <p className="font-heading font-extrabold text-3xl md:text-4xl">
                   {stat.value}
                 </p>
                 <p className="text-xs md:text-sm opacity-70">{stat.label}</p>
