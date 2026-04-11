@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { useProductStore } from "@/stores/productStore";
@@ -11,10 +11,16 @@ import { Input } from "@/components/ui/input";
 export default function Products() {
   const products = useProductStore((s) => s.products);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [search, setSearch] = useState("");
+  const initialSearch = searchParams.get("search") || "";
+  const [search, setSearch] = useState(initialSearch);
   const [showFilters, setShowFilters] = useState(false);
   const activeCategory = searchParams.get("category") || "";
   const [sort, setSort] = useState("popular");
+
+  useEffect(() => {
+    const urlSearch = searchParams.get("search") || "";
+    if (urlSearch !== search) setSearch(urlSearch);
+  }, [searchParams]);
 
   const filtered = useMemo(() => {
     let result = products.filter((p) => p.stock !== "out_of_stock");

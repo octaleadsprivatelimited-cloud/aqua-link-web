@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, ShoppingCart, Search, ChevronDown, ChevronRight, User } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
 import { categories } from "@/data/categories";
@@ -35,6 +35,18 @@ export default function Header() {
   const [hoveredCat, setHoveredCat] = useState(categories[0]?.slug || "");
   const totalItems = useCartStore((s) => s.totalItems());
   const megaTimeout = useRef<ReturnType<typeof setTimeout>>();
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [mobileSearchQuery, setMobileSearchQuery] = useState("");
+
+  const handleSearch = (query: string) => {
+    if (query.trim()) {
+      navigate(`/products?search=${encodeURIComponent(query.trim())}`);
+      setSearchQuery("");
+      setMobileSearchQuery("");
+      setSearchOpen(false);
+    }
+  };
 
   const openMega = () => {
     clearTimeout(megaTimeout.current);
@@ -90,14 +102,16 @@ export default function Header() {
 
           {/* Right side */}
           <div className="flex items-center gap-1">
-            <div className="hidden md:flex items-center bg-primary-foreground/10 rounded-full px-3 py-1.5 border border-primary-foreground/20">
+            <form onSubmit={(e) => { e.preventDefault(); handleSearch(searchQuery); }} className="hidden md:flex items-center bg-primary-foreground/10 rounded-full px-3 py-1.5 border border-primary-foreground/20">
               <input
                 type="text"
                 placeholder="Type to search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="bg-transparent text-primary-foreground placeholder:text-primary-foreground/50 text-sm w-36 lg:w-44 outline-none"
               />
-              <Search className="h-4 w-4 text-primary-foreground/60" />
-            </div>
+              <button type="submit"><Search className="h-4 w-4 text-primary-foreground/60" /></button>
+            </form>
             <button
               onClick={() => setSearchOpen(!searchOpen)}
               className="md:hidden p-2 text-primary-foreground/80 hover:text-primary-foreground"
@@ -105,9 +119,9 @@ export default function Header() {
             >
               <Search className="h-5 w-5" />
             </button>
-            <button className="p-2 text-primary-foreground/80 hover:text-primary-foreground">
+            <Link to="/admin" className="p-2 text-primary-foreground/80 hover:text-primary-foreground">
               <User className="h-5 w-5" />
-            </button>
+            </Link>
             <Link to="/cart" className="relative p-2 text-primary-foreground/80 hover:text-primary-foreground">
               <ShoppingCart className="h-5 w-5" />
               {totalItems > 0 && (
@@ -208,17 +222,19 @@ export default function Header() {
 
       {/* Mobile search */}
       {searchOpen && (
-        <div className="md:hidden bg-navy border-t border-primary-foreground/10 px-4 py-3">
+        <form onSubmit={(e) => { e.preventDefault(); handleSearch(mobileSearchQuery); }} className="md:hidden bg-navy border-t border-primary-foreground/10 px-4 py-3">
           <div className="flex items-center bg-primary-foreground/10 rounded-full px-3 py-2 border border-primary-foreground/20">
             <input
               type="text"
               placeholder="Type to search"
+              value={mobileSearchQuery}
+              onChange={(e) => setMobileSearchQuery(e.target.value)}
               className="bg-transparent text-primary-foreground placeholder:text-primary-foreground/50 text-sm flex-1 outline-none"
               autoFocus
             />
-            <Search className="h-4 w-4 text-primary-foreground/60" />
+            <button type="submit"><Search className="h-4 w-4 text-primary-foreground/60" /></button>
           </div>
-        </div>
+        </form>
       )}
 
       {/* Mobile menu */}
