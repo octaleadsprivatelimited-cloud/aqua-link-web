@@ -216,22 +216,19 @@ export default function Index() {
       </section>
 
       {/* Quick Actions Bar */}
-      <section className="py-6 bg-background border-b">
+      <section className="py-8 bg-background border-b border-border">
         <div className="container">
-          <p className="text-center text-accent font-heading font-semibold text-sm mb-4">
-            Explore Your Options
-          </p>
-          <div className="flex justify-center gap-8 md:gap-16">
+          <div className="flex justify-center gap-6 md:gap-12">
             {quickActions.map((action) => (
               <Link
                 key={action.label}
                 to={action.link}
-                className="flex flex-col items-center gap-2 group"
+                className="flex flex-col items-center gap-2.5 group"
               >
-                <div className="p-3 rounded-full border border-border group-hover:border-accent group-hover:bg-accent/5 transition-colors">
-                  <action.icon className="h-5 w-5 text-foreground group-hover:text-accent transition-colors" />
+                <div className="h-14 w-14 rounded-2xl bg-accent/10 group-hover:bg-accent group-hover:shadow-lg flex items-center justify-center transition-all duration-300">
+                  <action.icon className="h-6 w-6 text-accent group-hover:text-accent-foreground transition-colors" />
                 </div>
-                <span className="text-xs md:text-sm font-medium text-foreground group-hover:text-accent transition-colors">
+                <span className="text-xs md:text-sm font-heading font-medium text-foreground group-hover:text-accent transition-colors">
                   {action.label}
                 </span>
               </Link>
@@ -240,38 +237,42 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Solution Categories - ZeroB style cards */}
-      <section className="py-12 md:py-16 bg-surface">
+      {/* Solution Categories */}
+      <section className="py-14 md:py-20 bg-surface">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="text-center mb-10">
+            <p className="text-accent font-heading font-semibold text-sm uppercase tracking-wider mb-2">Our Solutions</p>
+            <h2 className="font-heading font-bold text-2xl md:text-4xl text-foreground">
+              Find Your Perfect Fit
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {solutionCategories.map((cat) => (
               <Link
                 key={cat.title}
                 to={cat.link}
-                className="group relative rounded-2xl overflow-hidden bg-card shadow-card hover:shadow-card-hover transition-all duration-300"
+                className="group relative rounded-2xl overflow-hidden bg-card border border-border hover:border-accent/30 shadow-card hover:shadow-card-hover transition-all duration-300"
               >
-                <div className="flex flex-col sm:flex-row">
-                  <div className="p-6 sm:p-8 flex-1 flex flex-col justify-center">
-                    <h2 className="font-heading font-bold text-xl md:text-2xl text-foreground mb-2">
-                      {cat.title}
-                    </h2>
-                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                      {cat.desc}
-                    </p>
-                    <span className="text-accent font-medium text-sm inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                      Explore Your Options <ArrowRight className="h-4 w-4" />
-                    </span>
-                  </div>
-                  <div className="sm:w-48 md:w-56 h-48 sm:h-auto overflow-hidden">
-                    <img
-                      src={cat.image}
-                      alt={cat.title}
-                      loading="lazy"
-                      width={400}
-                      height={300}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={cat.image}
+                    alt={cat.title}
+                    loading="lazy"
+                    width={400}
+                    height={300}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+                <div className="p-5">
+                  <h3 className="font-heading font-bold text-base text-foreground mb-1.5">
+                    {cat.title}
+                  </h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed mb-3 line-clamp-2">
+                    {cat.desc}
+                  </p>
+                  <span className="text-accent font-heading font-semibold text-xs inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                    Explore <ArrowRight className="h-3.5 w-3.5" />
+                  </span>
                 </div>
               </Link>
             ))}
@@ -280,12 +281,12 @@ export default function Index() {
       </section>
 
       {/* Scrolling Trust Marquee */}
-      <section className="py-4 bg-navy overflow-hidden">
+      <section className="py-3.5 bg-navy overflow-hidden">
         <div className="flex animate-marquee whitespace-nowrap">
           {[...trustBadges, ...trustBadges].map((badge, i) => (
             <span
               key={i}
-              className="inline-flex items-center gap-2 mx-8 text-primary-foreground/90 text-sm font-medium"
+              className="inline-flex items-center gap-2.5 mx-8 text-primary-foreground/90 text-sm font-medium"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-accent" />
               {badge}
@@ -295,27 +296,24 @@ export default function Index() {
       </section>
 
       {/* Product Range Section */}
-      <section className="py-12 md:py-16 bg-background">
+      <section className="py-14 md:py-20 bg-background">
         <div className="container">
-          <div className="rounded-2xl overflow-hidden bg-surface">
+          <div className="rounded-2xl overflow-hidden bg-surface border border-border">
             <div className="flex flex-col lg:flex-row">
               <div className="p-8 lg:p-12 flex-1 flex flex-col justify-center">
+                <p className="text-accent font-heading font-semibold text-sm uppercase tracking-wider mb-3">Our Range</p>
                 <h2 className="font-heading font-bold text-2xl md:text-3xl lg:text-4xl text-foreground mb-4">
                   Multiple Options,{" "}
                   <span className="text-accent">One Destination</span>
                 </h2>
-                <p className="text-muted-foreground leading-relaxed mb-6">
+                <p className="text-muted-foreground leading-relaxed mb-6 text-sm">
                   Choose the right water filter for your home. Our product range is
-                  thoughtfully crafted to suit your unique needs. Whatever you're
-                  looking for, we've got the perfect fit for you!
+                  thoughtfully crafted to suit your unique needs.
                 </p>
-                <div className="flex gap-3">
+                <div>
                   <Link to="/products">
-                    <Button
-                      variant="outline"
-                      className="rounded-full border-foreground text-foreground hover:bg-foreground hover:text-background font-medium"
-                    >
-                      Get Assistance <ArrowRight className="ml-2 h-4 w-4" />
+                    <Button className="rounded-full bg-accent text-accent-foreground hover:bg-accent/90 font-heading font-semibold px-8">
+                      View Products <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </Link>
                 </div>
@@ -338,40 +336,38 @@ export default function Index() {
       {/* Best Sellers */}
       <section className="py-14 md:py-20 bg-surface">
         <div className="container">
-          <div className="text-center mb-10">
-            <p className="text-accent font-heading font-semibold text-sm uppercase tracking-wider mb-2">Top Picks</p>
-            <h2 className="font-heading font-bold text-2xl md:text-4xl text-foreground">
-              Our Best Sellers
-            </h2>
-            <p className="text-muted-foreground mt-2 text-sm max-w-md mx-auto">
-              Trusted by thousands of families — our most popular water purifiers
-            </p>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-10">
+            <div>
+              <p className="text-accent font-heading font-semibold text-sm uppercase tracking-wider mb-2">Top Picks</p>
+              <h2 className="font-heading font-bold text-2xl md:text-4xl text-foreground">
+                Our Best Sellers
+              </h2>
+              <p className="text-muted-foreground mt-2 text-sm max-w-md">
+                Trusted by thousands of families — our most popular water purifiers
+              </p>
+            </div>
+            <Link to="/products" className="mt-4 md:mt-0">
+              <Button variant="outline" className="rounded-full px-6 font-heading font-semibold border-foreground text-foreground hover:bg-foreground hover:text-background text-sm">
+                View All <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featured.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
-          <div className="mt-10 text-center">
-            <Link to="/products">
-              <Button variant="outline" className="rounded-full px-8 font-heading font-semibold border-foreground text-foreground hover:bg-foreground hover:text-background">
-                View All Products <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
         </div>
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-12 md:py-16 bg-navy text-primary-foreground">
+      <section className="py-14 md:py-20 bg-navy text-primary-foreground">
         <div className="container">
-          <div className="text-center mb-10">
-            <h2 className="font-heading font-bold text-2xl md:text-3xl">
+          <div className="text-center mb-12">
+            <p className="text-accent font-heading font-semibold text-sm uppercase tracking-wider mb-2">Our Promise</p>
+            <h2 className="font-heading font-bold text-2xl md:text-4xl">
               Why Choose Aqua Safe?
             </h2>
-            <p className="mt-2 opacity-70 max-w-lg mx-auto text-sm">
-              Trusted by families across Andhra Pradesh
-            </p>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {[
@@ -382,20 +378,41 @@ export default function Index() {
             ].map((b, i) => (
               <div
                 key={i}
-                className="text-center bg-primary-foreground/5 backdrop-blur-sm rounded-xl p-5 md:p-6 border border-primary-foreground/10"
+                className="text-center bg-primary-foreground/5 rounded-2xl p-6 md:p-8 border border-primary-foreground/10 hover:bg-primary-foreground/10 transition-colors"
               >
-                <b.icon className="h-8 w-8 mx-auto mb-3" />
-                <h3 className="font-heading font-semibold text-sm md:text-base mb-1">
+                <div className="h-14 w-14 rounded-2xl bg-accent/20 flex items-center justify-center mx-auto mb-4">
+                  <b.icon className="h-7 w-7 text-accent" />
+                </div>
+                <h3 className="font-heading font-semibold text-sm md:text-base mb-1.5">
                   {b.title}
                 </h3>
-                <p className="text-xs md:text-sm opacity-70">{b.desc}</p>
+                <p className="text-xs md:text-sm opacity-60">{b.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FAQ Section — two-column like ZeroB */}
+      {/* Stats Counter */}
+      <section className="py-14 md:py-20 bg-background">
+        <div className="container">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {stats.map((stat, i) => (
+              <div key={i} className="text-center flex flex-col items-center gap-3 p-6 rounded-2xl bg-surface border border-border">
+                <div className="h-14 w-14 rounded-full bg-accent/10 flex items-center justify-center">
+                  <stat.icon className="h-6 w-6 text-accent" />
+                </div>
+                <p className="font-heading font-extrabold text-3xl md:text-4xl text-foreground">
+                  {stat.value}
+                </p>
+                <p className="text-xs md:text-sm text-muted-foreground font-medium">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
       <section className="py-14 md:py-20 bg-surface">
         <div className="container">
           <div className="text-center mb-10">
@@ -404,29 +421,25 @@ export default function Index() {
               Frequently Asked Questions
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 max-w-5xl mx-auto">
+          <div className="max-w-3xl mx-auto space-y-3">
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className="border-b border-border"
+                className={`rounded-xl border transition-colors ${openFaq === i ? "bg-card border-accent/30 shadow-card" : "bg-card border-border"}`}
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between py-4 text-left group"
+                  className="w-full flex items-center justify-between p-5 text-left"
                 >
-                  <span className="font-heading font-medium text-sm md:text-base text-foreground pr-4 group-hover:text-accent transition-colors">
+                  <span className="font-heading font-medium text-sm md:text-base text-foreground pr-4">
                     {faq.q}
                   </span>
-                  <span className={`shrink-0 h-7 w-7 rounded-full flex items-center justify-center transition-colors ${openFaq === i ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>
-                    {openFaq === i ? (
-                      <ChevronUp className="h-4 w-4" />
-                    ) : (
-                      <ChevronDown className="h-4 w-4" />
-                    )}
+                  <span className={`shrink-0 h-8 w-8 rounded-full flex items-center justify-center transition-all ${openFaq === i ? "bg-accent text-accent-foreground rotate-180" : "bg-secondary text-muted-foreground"}`}>
+                    <ChevronDown className="h-4 w-4" />
                   </span>
                 </button>
                 {openFaq === i && (
-                  <div className="pb-4 text-sm text-muted-foreground leading-relaxed animate-fade-in">
+                  <div className="px-5 pb-5 text-sm text-muted-foreground leading-relaxed animate-fade-in">
                     {faq.a}
                   </div>
                 )}
@@ -437,25 +450,20 @@ export default function Index() {
       </section>
 
       {/* Testimonials */}
-      {/* Testimonials — grid layout */}
       <section className="py-14 md:py-20 bg-background">
         <div className="container">
           <div className="text-center mb-10">
-            <p className="text-accent font-heading font-semibold text-sm uppercase tracking-wider mb-2">What Our Customers Say</p>
+            <p className="text-accent font-heading font-semibold text-sm uppercase tracking-wider mb-2">Customer Love</p>
             <h2 className="font-heading font-bold text-2xl md:text-4xl text-foreground">
-              Testimonials
+              What Our Customers Say
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((t, i) => (
               <div
                 key={i}
-                className="bg-card rounded-2xl p-6 md:p-8 shadow-card border relative"
+                className="bg-card rounded-2xl p-6 md:p-8 border border-border hover:border-accent/20 hover:shadow-card-hover transition-all duration-300 relative"
               >
-                <div className="text-accent text-5xl font-serif leading-none mb-3 opacity-30">"</div>
-                <p className="text-sm text-foreground leading-relaxed mb-6">
-                  {t.text}
-                </p>
                 <div className="flex gap-0.5 mb-4">
                   {Array.from({ length: 5 }).map((_, j) => (
                     <Star
@@ -468,8 +476,11 @@ export default function Index() {
                     />
                   ))}
                 </div>
+                <p className="text-sm text-foreground leading-relaxed mb-6">
+                  "{t.text}"
+                </p>
                 <div className="flex items-center gap-3 pt-4 border-t border-border">
-                  <div className="h-11 w-11 rounded-full bg-navy flex items-center justify-center text-primary-foreground font-heading font-bold text-sm">
+                  <div className="h-10 w-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-heading font-bold text-sm">
                     {t.name.charAt(0)}
                   </div>
                   <div>
@@ -485,36 +496,17 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Stats Counter — with icons */}
-      <section className="py-12 md:py-16 bg-navy text-primary-foreground">
-        <div className="container">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((stat, i) => (
-              <div key={i} className="text-center flex flex-col items-center gap-3 p-4">
-                <div className="h-14 w-14 rounded-full bg-primary-foreground/10 border border-primary-foreground/20 flex items-center justify-center">
-                  <stat.icon className="h-6 w-6" />
-                </div>
-                <p className="font-heading font-extrabold text-3xl md:text-4xl">
-                  {stat.value}
-                </p>
-                <p className="text-xs md:text-sm opacity-70">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
-      <section className="py-12 md:py-16 bg-background">
+      <section className="py-14 md:py-20 bg-navy text-primary-foreground">
         <div className="container text-center">
-          <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground mb-3">
+          <h2 className="font-heading font-bold text-2xl md:text-4xl mb-3">
             Get Your Perfect Water Purifier Today
           </h2>
-          <p className="text-muted-foreground mb-6 max-w-xl mx-auto text-sm">
+          <p className="opacity-70 mb-8 max-w-xl mx-auto text-sm">
             Free delivery & installation. Talk to our experts on WhatsApp for
             personalized recommendations.
           </p>
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="flex flex-wrap justify-center gap-4">
             <a
               href="https://wa.me/919985850777?text=Hi!%20I%20need%20help%20choosing%20a%20water%20purifier."
               target="_blank"
@@ -531,7 +523,7 @@ export default function Index() {
               <Button
                 size="lg"
                 variant="outline"
-                className="rounded-full px-8 font-heading font-semibold"
+                className="rounded-full px-8 font-heading font-semibold border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
               >
                 Call +91 9985850777
               </Button>
