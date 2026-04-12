@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Clock } from "lucide-react";
 import Layout from "@/components/layout/Layout";
+import bgHero from "@/assets/bg-hero-dark.jpg";
 
 export const posts = [
   {
