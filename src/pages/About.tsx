@@ -28,12 +28,12 @@ export default function About() {
             <span className="mx-2">/</span>
             <span>About Us</span>
           </nav>
-          <div className="max-w-3xl">
+          <div className="max-w-3xl mx-auto text-center">
             <p className="text-accent font-heading font-semibold text-sm uppercase tracking-wider mb-3">Who We Are</p>
             <h1 className="font-heading font-bold text-3xl md:text-5xl lg:text-6xl leading-tight mb-5">
               Pure Water, <span className="text-accent">Healthy Lives</span>
             </h1>
-            <p className="opacity-80 text-base md:text-lg leading-relaxed max-w-2xl">
+            <p className="opacity-80 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
               Dedicated to providing clean, safe, and healthy water solutions for homes and businesses across India since 2015.
             </p>
           </div>
@@ -116,22 +116,16 @@ export default function About() {
             <p className="text-accent font-heading font-semibold text-sm uppercase tracking-wider mb-2">Our Story</p>
             <h2 className="font-heading font-bold text-2xl md:text-4xl text-foreground">Our Journey</h2>
           </div>
-          <div className="max-w-3xl mx-auto relative">
-            {/* Timeline line */}
-            <div className="absolute left-[39px] top-0 bottom-0 w-px bg-border hidden md:block" />
-            <div className="space-y-6">
-              {milestones.map((m, i) => (
-                <div key={i} className="flex gap-5 items-start group">
-                  <div className="shrink-0 h-20 w-20 rounded-2xl bg-navy text-primary-foreground flex items-center justify-center font-heading font-bold text-lg relative z-10 group-hover:bg-accent transition-colors duration-300">
-                    {m.year}
-                  </div>
-                  <div className="pt-2 pb-4">
-                    <h3 className="font-heading font-semibold text-base md:text-lg text-foreground">{m.title}</h3>
-                    <p className="text-sm text-muted-foreground mt-1 leading-relaxed">{m.desc}</p>
-                  </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-5xl mx-auto">
+            {milestones.map((m, i) => (
+              <div key={i} className="bg-card rounded-2xl p-6 border border-border hover:border-accent/20 hover:shadow-card-hover transition-all duration-300 text-center group">
+                <div className="h-16 w-16 rounded-2xl bg-navy text-primary-foreground flex items-center justify-center font-heading font-bold text-lg mx-auto mb-4 group-hover:bg-accent transition-colors duration-300">
+                  {m.year}
                 </div>
-              ))}
-            </div>
+                <h3 className="font-heading font-semibold text-base text-foreground mb-2">{m.title}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">{m.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
