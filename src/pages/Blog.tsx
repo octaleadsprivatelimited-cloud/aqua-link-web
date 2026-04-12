@@ -99,8 +99,10 @@ export const posts = [
 export default function Blog() {
   return (
     <Layout>
-      <section className="bg-navy text-primary-foreground py-10 md:py-14">
-        <div className="container text-center">
+      <section className="relative text-primary-foreground py-10 md:py-14 overflow-hidden">
+        <img src={bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-navy/80" />
+        <div className="container text-center relative z-10">
           <nav className="text-sm mb-4 opacity-60 font-medium">
             <Link to="/" className="hover:opacity-100 transition-opacity">Home</Link>
             <span className="mx-2">/</span>

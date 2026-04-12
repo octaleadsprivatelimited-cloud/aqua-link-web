@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Clock, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
+import bgHero from "@/assets/bg-hero-dark.jpg";
 import { posts } from "@/pages/Blog";
 
 export default function BlogPost() {
@@ -11,8 +12,10 @@ export default function BlogPost() {
   if (!post) {
     return (
       <Layout>
-        <section className="bg-navy text-primary-foreground py-10 md:py-14">
-          <div className="container text-center">
+        <section className="relative text-primary-foreground py-10 md:py-14 overflow-hidden">
+          <img src={bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-navy/80" />
+          <div className="container text-center relative z-10">
             <h1 className="font-heading font-bold text-2xl md:text-4xl">Post Not Found</h1>
           </div>
         </section>
@@ -34,8 +37,10 @@ export default function BlogPost() {
 
   return (
     <Layout>
-      <section className="bg-navy text-primary-foreground py-10 md:py-14">
-        <div className="container">
+      <section className="relative text-primary-foreground py-10 md:py-14 overflow-hidden">
+        <img src={bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-navy/80" />
+        <div className="container relative z-10">
           <nav className="text-sm mb-4 opacity-60 font-medium">
             <Link to="/" className="hover:opacity-100 transition-opacity">Home</Link>
             <span className="mx-2">/</span>
