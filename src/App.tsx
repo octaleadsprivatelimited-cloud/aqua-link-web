@@ -10,6 +10,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Cart from "./pages/Cart";
 import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 import AdminLayout from "./components/admin/AdminLayout";
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/faq" element={<FAQ />} />
 
           {/* Admin Routes */}

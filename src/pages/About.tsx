@@ -21,7 +21,7 @@ export default function About() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="bg-navy text-primary-foreground py-16 md:py-24">
+      <section className="bg-navy text-primary-foreground py-10 md:py-14">
         <div className="container">
           <nav className="text-sm mb-6 opacity-60 font-medium">
             <Link to="/" className="hover:opacity-100 transition-opacity">Home</Link>
