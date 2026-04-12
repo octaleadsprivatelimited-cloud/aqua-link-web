@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import { Target, Eye, Award, Users, Droplets, Shield, Clock, ArrowRight, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
+import bgHero from "@/assets/bg-hero-dark.jpg";
+import bgCta from "@/assets/bg-cta.jpg";
+import bgPromise from "@/assets/bg-promise.jpg";
 
 const milestones = [
   { year: "2015", title: "Founded", desc: "Started with a mission to provide clean water to every household" },
@@ -21,8 +24,10 @@ export default function About() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="bg-navy text-primary-foreground py-10 md:py-14">
-        <div className="container">
+      <section className="relative text-primary-foreground py-10 md:py-14 overflow-hidden">
+        <img src={bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-navy/80" />
+        <div className="container relative z-10">
           <nav className="text-sm mb-6 opacity-60 font-medium">
             <Link to="/" className="hover:opacity-100 transition-opacity">Home</Link>
             <span className="mx-2">/</span>
@@ -131,8 +136,10 @@ export default function About() {
       </section>
 
       {/* Stats */}
-      <section className="py-14 md:py-20 bg-navy text-primary-foreground">
-        <div className="container">
+      <section className="py-14 md:py-20 relative text-primary-foreground overflow-hidden">
+        <img src={bgPromise} alt="" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+        <div className="absolute inset-0 bg-navy/85" />
+        <div className="container relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               { icon: Users, num: "10,000+", label: "Happy Customers" },
@@ -153,8 +160,10 @@ export default function About() {
       </section>
 
       {/* CTA */}
-      <section className="py-14 md:py-20 bg-background">
-        <div className="container text-center">
+      <section className="py-14 md:py-20 relative overflow-hidden">
+        <img src={bgCta} alt="" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+        <div className="absolute inset-0 bg-navy/80" />
+        <div className="container text-center relative z-10 text-primary-foreground">
           <h2 className="font-heading font-bold text-2xl md:text-4xl text-foreground mb-3">Ready to Get Pure Water?</h2>
           <p className="text-muted-foreground mb-8 max-w-lg mx-auto text-sm">
             Talk to our experts for free consultation and find the perfect purifier for your needs.

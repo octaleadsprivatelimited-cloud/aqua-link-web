@@ -12,6 +12,8 @@ import catHome from "@/assets/cat-home.jpg";
 import catCommercial from "@/assets/cat-commercial.jpg";
 import catUv from "@/assets/cat-uv.jpg";
 import catFilters from "@/assets/cat-filters.jpg";
+import bgPromise from "@/assets/bg-promise.jpg";
+import bgCta from "@/assets/bg-cta.jpg";
 
 const heroSlides = [
   {
@@ -361,8 +363,10 @@ export default function Index() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-14 md:py-20 bg-navy text-primary-foreground">
-        <div className="container">
+      <section className="py-14 md:py-20 relative text-primary-foreground overflow-hidden">
+        <img src={bgPromise} alt="" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+        <div className="absolute inset-0 bg-navy/85" />
+        <div className="container relative z-10">
           <div className="text-center mb-12">
             <p className="text-accent font-heading font-semibold text-sm uppercase tracking-wider mb-2">Our Promise</p>
             <h2 className="font-heading font-bold text-2xl md:text-4xl">
@@ -497,8 +501,10 @@ export default function Index() {
       </section>
 
       {/* CTA */}
-      <section className="py-14 md:py-20 bg-navy text-primary-foreground">
-        <div className="container text-center">
+      <section className="py-14 md:py-20 relative text-primary-foreground overflow-hidden">
+        <img src={bgCta} alt="" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+        <div className="absolute inset-0 bg-navy/80" />
+        <div className="container text-center relative z-10">
           <h2 className="font-heading font-bold text-2xl md:text-4xl mb-3">
             Get Your Perfect Water Purifier Today
           </h2>

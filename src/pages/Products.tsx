@@ -7,6 +7,7 @@ import ProductCard from "@/components/products/ProductCard";
 import Layout from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import bgHero from "@/assets/bg-hero-dark.jpg";
 
 export default function Products() {
   const products = useProductStore((s) => s.products);
@@ -42,8 +43,10 @@ export default function Products() {
 
   return (
     <Layout>
-      <div className="bg-hero-gradient text-primary-foreground py-12 md:py-16">
-        <div className="container">
+      <div className="relative text-primary-foreground py-10 md:py-14 overflow-hidden">
+        <img src={bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-navy/80" />
+        <div className="container relative z-10">
           <nav className="text-sm mb-4 opacity-70">
             <Link to="/" className="hover:opacity-100">Home</Link> / <span>Products</span>
           </nav>

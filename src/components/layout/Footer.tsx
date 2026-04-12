@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import bgFooter from "@/assets/bg-footer.jpg";
 
 export default function Footer() {
   return (
-    <footer className="bg-navy text-primary-foreground">
-      <div className="container py-12 md:py-16">
+    <footer className="relative text-primary-foreground overflow-hidden">
+      <img src={bgFooter} alt="" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+      <div className="absolute inset-0 bg-navy/90" />
+      <div className="container py-12 md:py-16 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
           <div>
@@ -101,7 +104,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-primary-foreground/10">
+      <div className="border-t border-primary-foreground/10 relative z-10">
         <div className="container py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs opacity-50">
           <p>© {new Date().getFullYear()} Aqua Safe Water Technologies. All rights reserved.</p>
           <p>

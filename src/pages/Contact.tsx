@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Layout from "@/components/layout/Layout";
 import { toast } from "@/hooks/use-toast";
+import bgHero from "@/assets/bg-hero-dark.jpg";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
@@ -23,8 +24,10 @@ export default function Contact() {
 
   return (
     <Layout>
-      <div className="bg-hero-gradient text-primary-foreground py-16 md:py-20">
-        <div className="container">
+      <div className="relative text-primary-foreground py-10 md:py-14 overflow-hidden">
+        <img src={bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-navy/80" />
+        <div className="container relative z-10">
           <nav className="text-sm mb-4 opacity-70">
             <Link to="/" className="hover:opacity-100">Home</Link> / <span>Contact</span>
           </nav>
