@@ -147,12 +147,12 @@ export default function Index() {
   return (
     <Layout>
       {/* Hero Slider */}
-      <section className="relative h-[280px] md:h-[340px] lg:h-[380px] overflow-hidden">
+      <section className="relative h-[350px] md:h-[420px] lg:h-[480px] overflow-hidden">
         {heroSlides.map((slide, i) => (
           <div
             key={i}
-            className={`absolute inset-0 transition-opacity duration-700 ${
-              i === currentSlide ? "opacity-100" : "opacity-0"
+            className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+              i === currentSlide ? "opacity-100 scale-100" : "opacity-0 scale-105"
             }`}
           >
             <img
@@ -163,23 +163,22 @@ export default function Index() {
               className="w-full h-full object-cover"
               {...(i === 0 ? {} : { loading: "lazy" as const })}
             />
-            <div className="absolute inset-0 bg-foreground/50" />
-            <div className="absolute inset-0 flex items-center justify-center text-center">
+            <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/40 to-foreground/20" />
+            <div className="absolute inset-0 flex items-end pb-14 md:pb-16 lg:pb-20">
               <div className="container">
-                <div className="max-w-2xl mx-auto">
-                  <h1 className="font-heading font-extrabold text-2xl md:text-3xl lg:text-4xl text-primary-foreground leading-tight mb-2">
+                <div className="max-w-xl">
+                  <span className="inline-block px-3 py-1 rounded-full bg-accent/90 text-accent-foreground text-[10px] md:text-xs font-heading font-semibold uppercase tracking-wider mb-3">
+                    {slide.subtitle}
+                  </span>
+                  <h1 className="font-heading font-extrabold text-2xl md:text-4xl lg:text-5xl text-primary-foreground leading-[1.15] mb-4 drop-shadow-lg">
                     {slide.title}
                   </h1>
-                  <p className="text-primary-foreground/80 text-sm md:text-base mb-5">
-                    {slide.subtitle}
-                  </p>
                   <Link to={slide.link}>
                     <Button
                       size="lg"
-                      variant="outline"
-                      className="border-primary-foreground text-primary-foreground bg-primary-foreground/20 hover:bg-primary-foreground/30 font-heading font-semibold rounded-full px-8"
+                      className="bg-accent text-accent-foreground hover:bg-accent/90 font-heading font-semibold rounded-full px-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5"
                     >
-                      {slide.cta}
+                      {slide.cta} <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </Link>
                 </div>
@@ -187,14 +186,14 @@ export default function Index() {
             </div>
           </div>
         ))}
-        {/* Dots */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+        {/* Progress dots */}
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2.5">
           {heroSlides.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrentSlide(i)}
-              className={`h-2.5 rounded-full transition-all ${
-                i === currentSlide ? "w-8 bg-primary-foreground" : "w-2.5 bg-primary-foreground/40"
+              className={`h-1.5 rounded-full transition-all duration-500 ${
+                i === currentSlide ? "w-10 bg-accent" : "w-3 bg-primary-foreground/30 hover:bg-primary-foreground/50"
               }`}
               aria-label={`Go to slide ${i + 1}`}
             />
