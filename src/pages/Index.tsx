@@ -167,7 +167,7 @@ export default function Index() {
             <div className="absolute inset-0 flex items-center">
               <div className="container">
                 <div className="max-w-lg">
-                  <h1 className="font-heading font-extrabold text-3xl md:text-5xl lg:text-6xl text-primary-foreground leading-tight mb-3">
+                  <h1 className="font-heading font-extrabold text-2xl md:text-3xl lg:text-4xl text-primary-foreground leading-tight mb-3">
                     {slide.title}
                   </h1>
                   <p className="text-primary-foreground/80 text-base md:text-lg mb-6">
