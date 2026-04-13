@@ -147,12 +147,12 @@ export default function Index() {
   return (
     <Layout>
       {/* Hero Slider */}
-      <section className="relative h-[400px] md:h-[500px] lg:h-[550px] overflow-hidden">
+      <section className="relative h-[480px] md:h-[560px] lg:h-[620px] overflow-hidden">
         {heroSlides.map((slide, i) => (
           <div
             key={i}
-            className={`absolute inset-0 transition-opacity duration-700 ${
-              i === currentSlide ? "opacity-100" : "opacity-0"
+            className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+              i === currentSlide ? "opacity-100 scale-100" : "opacity-0 scale-105"
             }`}
           >
             <img
@@ -163,23 +163,35 @@ export default function Index() {
               className="w-full h-full object-cover"
               {...(i === 0 ? {} : { loading: "lazy" as const })}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-foreground/70 via-foreground/40 to-transparent" />
-            <div className="absolute inset-0 flex items-center">
-              <div className="container">
-                <div className="max-w-lg">
-                  <h1 className="font-heading font-extrabold text-3xl md:text-5xl lg:text-6xl text-primary-foreground leading-tight mb-3">
-                    {slide.title}
-                  </h1>
-                  <p className="text-primary-foreground/80 text-base md:text-lg mb-6">
-                    {slide.subtitle}
-                  </p>
+            <div className="absolute inset-0 bg-gradient-to-b from-foreground/60 via-foreground/50 to-foreground/80" />
+            <div className="absolute inset-0 flex items-center justify-center text-center">
+              <div className="container max-w-3xl px-6">
+                <span className="inline-block px-4 py-1.5 rounded-full bg-primary-foreground/15 backdrop-blur-sm text-primary-foreground/90 text-xs md:text-sm font-medium tracking-wider uppercase mb-5 border border-primary-foreground/20">
+                  {slide.subtitle}
+                </span>
+                <h1 className="font-heading font-extrabold text-4xl md:text-6xl lg:text-7xl text-primary-foreground leading-[1.1] mb-6 drop-shadow-lg">
+                  {slide.title}
+                </h1>
+                <p className="text-primary-foreground/70 text-base md:text-lg mb-8 max-w-xl mx-auto">
+                  Providing clean, safe, and healthy water solutions for homes and businesses across India.
+                </p>
+                <div className="flex items-center justify-center gap-4">
                   <Link to={slide.link}>
                     <Button
                       size="lg"
-                      variant="outline"
-                      className="border-primary-foreground text-primary-foreground bg-primary-foreground/20 hover:bg-primary-foreground/30 font-heading font-semibold rounded-full px-8"
+                      className="bg-accent text-accent-foreground hover:bg-accent/90 font-heading font-semibold rounded-full px-8 shadow-lg"
                     >
                       {slide.cta}
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                  <Link to="/contact">
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="border-primary-foreground/40 text-primary-foreground bg-primary-foreground/10 hover:bg-primary-foreground/20 font-heading font-semibold rounded-full px-8 backdrop-blur-sm"
+                    >
+                      Book a Demo
                     </Button>
                   </Link>
                 </div>
@@ -190,30 +202,43 @@ export default function Index() {
         {/* Nav arrows */}
         <button
           onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 p-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+          className="absolute left-4 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-primary-foreground/10 backdrop-blur-sm text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/20 transition-all"
           aria-label="Previous slide"
         >
-          <ArrowLeft className="h-8 w-8" />
+          <ArrowLeft className="h-6 w-6" />
         </button>
         <button
           onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+          className="absolute right-4 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-primary-foreground/10 backdrop-blur-sm text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/20 transition-all"
           aria-label="Next slide"
         >
-          <ArrowRight className="h-8 w-8" />
+          <ArrowRight className="h-6 w-6" />
         </button>
         {/* Dots */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2.5">
           {heroSlides.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrentSlide(i)}
-              className={`h-2.5 rounded-full transition-all ${
-                i === currentSlide ? "w-8 bg-primary-foreground" : "w-2.5 bg-primary-foreground/40"
+              className={`h-2.5 rounded-full transition-all duration-500 ${
+                i === currentSlide ? "w-10 bg-accent" : "w-2.5 bg-primary-foreground/40"
               }`}
               aria-label={`Go to slide ${i + 1}`}
             />
           ))}
+        </div>
+        {/* Trust badges */}
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-foreground/40 to-transparent pt-12 pb-14">
+          <div className="container">
+            <div className="hidden md:flex items-center justify-center gap-6 text-primary-foreground/60 text-xs font-medium">
+              {trustBadges.slice(0, 4).map((badge) => (
+                <span key={badge} className="flex items-center gap-1.5">
+                  <Shield className="h-3.5 w-3.5 text-accent" />
+                  {badge}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
