@@ -24,7 +24,7 @@ export default function Footer() {
               Providing clean, safe, and healthy water solutions for homes and businesses across India since 2015.
             </p>
             <div className="flex items-center gap-3 mt-4">
-              <a href="#" className="p-2 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors">
+              <a href="https://www.facebook.com/share/v/1D86G96Zaf/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors">
                 <Facebook className="h-4 w-4" />
               </a>
               <a href="#" className="p-2 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors">
