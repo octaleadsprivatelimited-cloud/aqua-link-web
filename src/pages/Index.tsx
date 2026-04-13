@@ -147,7 +147,7 @@ export default function Index() {
   return (
     <Layout>
       {/* Hero Slider */}
-      <section className="relative h-[300px] md:h-[380px] lg:h-[420px] overflow-hidden">
+      <section className="relative h-[280px] md:h-[340px] lg:h-[380px] overflow-hidden">
         {heroSlides.map((slide, i) => (
           <div
             key={i}
@@ -164,13 +164,13 @@ export default function Index() {
               {...(i === 0 ? {} : { loading: "lazy" as const })}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-foreground/70 via-foreground/40 to-transparent" />
-            <div className="absolute inset-0 flex items-center">
+            <div className="absolute inset-0 flex items-center justify-center text-center">
               <div className="container">
-                <div className="max-w-lg">
-                  <h1 className="font-heading font-extrabold text-2xl md:text-3xl lg:text-4xl text-primary-foreground leading-tight mb-3">
+                <div className="max-w-2xl mx-auto">
+                  <h1 className="font-heading font-extrabold text-2xl md:text-3xl lg:text-4xl text-primary-foreground leading-tight mb-2">
                     {slide.title}
                   </h1>
-                  <p className="text-primary-foreground/80 text-base md:text-lg mb-6">
+                  <p className="text-primary-foreground/80 text-sm md:text-base mb-5">
                     {slide.subtitle}
                   </p>
                   <Link to={slide.link}>
