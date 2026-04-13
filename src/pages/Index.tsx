@@ -147,7 +147,7 @@ export default function Index() {
   return (
     <Layout>
       {/* Hero Slider */}
-      <section className="relative h-[400px] md:h-[500px] lg:h-[550px] overflow-hidden">
+      <section className="relative h-[300px] md:h-[380px] lg:h-[420px] overflow-hidden">
         {heroSlides.map((slide, i) => (
           <div
             key={i}
