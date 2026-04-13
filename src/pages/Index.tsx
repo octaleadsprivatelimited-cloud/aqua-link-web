@@ -163,7 +163,7 @@ export default function Index() {
               className="w-full h-full object-cover"
               {...(i === 0 ? {} : { loading: "lazy" as const })}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-foreground/70 via-foreground/40 to-transparent" />
+            <div className="absolute inset-0 bg-foreground/50" />
             <div className="absolute inset-0 flex items-center justify-center text-center">
               <div className="container">
                 <div className="max-w-2xl mx-auto">
