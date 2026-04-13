@@ -187,21 +187,6 @@ export default function Index() {
             </div>
           </div>
         ))}
-        {/* Nav arrows */}
-        <button
-          onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 p-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors"
-          aria-label="Previous slide"
-        >
-          <ArrowLeft className="h-8 w-8" />
-        </button>
-        <button
-          onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors"
-          aria-label="Next slide"
-        >
-          <ArrowRight className="h-8 w-8" />
-        </button>
         {/* Dots */}
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
           {heroSlides.map((_, i) => (
