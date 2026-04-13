@@ -1,6 +1,39 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Youtube, ChevronDown } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import bgFooter from "@/assets/bg-footer.jpg";
+
+function CollapsibleSection({ title, children }: { title: string; children: React.ReactNode }) {
+  const isMobile = useIsMobile();
+  const [open, setOpen] = useState(false);
+
+  if (!isMobile) {
+    return (
+      <div>
+        <h4 className="font-heading font-semibold mb-4 text-base">{title}</h4>
+        {children}
+      </div>
+    );
+  }
+
+  return (
+    <div className="border-b border-primary-foreground/10 pb-3">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center justify-between w-full py-2 font-heading font-semibold text-base"
+      >
+        {title}
+        <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
+      </button>
+      <div
+        className={`overflow-hidden transition-all duration-300 ${open ? "max-h-96 opacity-100 mt-2" : "max-h-0 opacity-0"}`}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
 
 export default function Footer() {
   return (
@@ -8,7 +41,7 @@ export default function Footer() {
       <img src={bgFooter} alt="" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
       <div className="absolute inset-0 bg-navy/90" />
       <div className="container py-12 md:py-16 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
@@ -40,8 +73,7 @@ export default function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h4 className="font-heading font-semibold mb-4 text-base">Quick Links</h4>
+          <CollapsibleSection title="Quick Links">
             <ul className="space-y-2.5 text-sm opacity-70">
               {[
                 { label: "Products", to: "/products" },
@@ -57,11 +89,10 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </CollapsibleSection>
 
           {/* Categories */}
-          <div>
-            <h4 className="font-heading font-semibold mb-4 text-base">Categories</h4>
+          <CollapsibleSection title="Categories">
             <ul className="space-y-2.5 text-sm opacity-70">
               {[
                 { label: "RO Purifiers", slug: "ro-purifiers" },
@@ -78,9 +109,9 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </CollapsibleSection>
 
-          {/* Contact */}
+          {/* Contact - always visible */}
           <div>
             <h4 className="font-heading font-semibold mb-4 text-base">Contact Us</h4>
             <ul className="space-y-3 text-sm opacity-70">
