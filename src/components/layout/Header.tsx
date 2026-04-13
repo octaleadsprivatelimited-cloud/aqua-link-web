@@ -60,79 +60,76 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50">
-      <div className="bg-navy">
-        <div className="container flex items-center justify-between h-14 md:h-16">
+      <div className="bg-navy/95 backdrop-blur-md border-b border-primary-foreground/5">
+        <div className="container flex items-center justify-between h-16 md:h-[68px]">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 shrink-0">
-            <div className="h-9 w-9 rounded-full bg-background flex items-center justify-center">
-              <span className="text-navy font-heading font-bold text-base">A</span>
+          <Link to="/" className="flex items-center gap-2.5 shrink-0 group">
+            <div className="h-10 w-10 rounded-xl bg-background flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
+              <span className="text-navy font-heading font-bold text-lg">A</span>
             </div>
             <div className="hidden sm:block">
-              <p className="font-heading font-bold text-primary-foreground text-sm leading-tight">
+              <p className="font-heading font-bold text-primary-foreground text-[15px] leading-tight tracking-tight">
                 Aqua Safe
               </p>
-              <p className="text-[10px] text-primary-foreground/60 leading-tight">
+              <p className="text-[10px] text-primary-foreground/50 leading-tight tracking-wide uppercase">
                 Water Technologies
               </p>
             </div>
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-0.5">
-            {navLinks.map((link, i) => (
+          <nav className="hidden lg:flex items-center gap-1">
+            {navLinks.map((link) => (
               <span
                 key={link.to}
                 className="flex items-center"
                 onMouseEnter={link.hasDropdown ? openMega : undefined}
                 onMouseLeave={link.hasDropdown ? closeMega : undefined}
               >
-                {i > 0 && (
-                  <span className="text-primary-foreground/30 mx-0.5">|</span>
-                )}
                 <Link
                   to={link.to}
-                  className="px-3 py-2 text-sm font-medium text-primary-foreground/90 hover:text-primary-foreground transition-colors flex items-center gap-1"
+                  className="relative px-4 py-2 text-[13px] font-medium text-primary-foreground/75 hover:text-primary-foreground transition-colors flex items-center gap-1 rounded-lg hover:bg-primary-foreground/5"
                 >
                   {link.label}
-                  {link.hasDropdown && <ChevronDown className="h-3.5 w-3.5" />}
+                  {link.hasDropdown && <ChevronDown className="h-3 w-3 opacity-60" />}
                 </Link>
               </span>
             ))}
           </nav>
 
           {/* Right side */}
-          <div className="flex items-center gap-1">
-            <form onSubmit={(e) => { e.preventDefault(); handleSearch(searchQuery); }} className="hidden md:flex items-center bg-primary-foreground/10 rounded-full px-3 py-1.5 border border-primary-foreground/20">
+          <div className="flex items-center gap-0.5">
+            <form onSubmit={(e) => { e.preventDefault(); handleSearch(searchQuery); }} className="hidden md:flex items-center bg-primary-foreground/8 rounded-xl px-3.5 py-2 border border-primary-foreground/10 focus-within:border-primary-foreground/25 transition-colors">
               <input
                 type="text"
-                placeholder="Type to search"
+                placeholder="Search products..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-transparent text-primary-foreground placeholder:text-primary-foreground/50 text-sm w-36 lg:w-44 outline-none"
+                className="bg-transparent text-primary-foreground placeholder:text-primary-foreground/40 text-sm w-32 lg:w-40 outline-none"
               />
-              <button type="submit"><Search className="h-4 w-4 text-primary-foreground/60" /></button>
+              <button type="submit"><Search className="h-4 w-4 text-primary-foreground/40" /></button>
             </form>
             <button
               onClick={() => setSearchOpen(!searchOpen)}
-              className="md:hidden p-2 text-primary-foreground/80 hover:text-primary-foreground"
+              className="md:hidden p-2.5 text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/5 rounded-lg transition-colors"
               aria-label="Search"
             >
               <Search className="h-5 w-5" />
             </button>
-            <Link to="/admin" className="p-2 text-primary-foreground/80 hover:text-primary-foreground">
+            <Link to="/admin" className="p-2.5 text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/5 rounded-lg transition-colors">
               <User className="h-5 w-5" />
             </Link>
-            <Link to="/cart" className="relative p-2 text-primary-foreground/80 hover:text-primary-foreground">
+            <Link to="/cart" className="relative p-2.5 text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/5 rounded-lg transition-colors">
               <ShoppingCart className="h-5 w-5" />
               {totalItems > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 rounded-full bg-accent text-accent-foreground text-[10px] font-bold flex items-center justify-center min-w-[18px] h-[18px]">
+                <span className="absolute top-0.5 right-0.5 rounded-full bg-accent text-accent-foreground text-[10px] font-bold flex items-center justify-center min-w-[18px] h-[18px] shadow-sm">
                   {totalItems}
                 </span>
               )}
             </Link>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="lg:hidden p-2 text-primary-foreground/80 hover:text-primary-foreground"
+              className="lg:hidden p-2.5 text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/5 rounded-lg transition-colors"
               aria-label="Toggle menu"
             >
               {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
