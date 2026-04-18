@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
 import { toast } from "@/hooks/use-toast";
 import bgHero from "@/assets/bg-hero-dark.jpg";
 
@@ -24,6 +25,7 @@ export default function Contact() {
 
   return (
     <Layout>
+      <SEO title="Contact Us" description="Get in touch with Aqua Safe Water Technologies. We offer 24/7 customer support and free consultation for your water purification needs." />
       <div className="relative text-primary-foreground py-10 md:py-14 overflow-hidden">
         <img src={bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-navy/80" />

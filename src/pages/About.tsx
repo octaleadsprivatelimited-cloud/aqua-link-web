@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Target, Eye, Award, Users, Droplets, Shield, Clock, ArrowRight, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
 import bgHero from "@/assets/bg-hero-dark.jpg";
 import bgCta from "@/assets/bg-cta.jpg";
 import bgPromise from "@/assets/bg-promise.jpg";
@@ -23,6 +24,7 @@ const values = [
 export default function About() {
   return (
     <Layout>
+      <SEO title="About Us" description="Learn about Aqua Safe Water Technologies, our mission, vision, and dedication to providing clean and safe water solutions since 2015." />
       {/* Hero */}
       <section className="relative text-primary-foreground py-10 md:py-14 overflow-hidden">
         <img src={bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />

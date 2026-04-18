@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useProductStore } from "@/stores/productStore";
 import ProductCard from "@/components/products/ProductCard";
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
 import heroSlide1 from "@/assets/hero-slide-1.jpg";
 import heroSlide2 from "@/assets/hero-slide-2.jpg";
 import productRange from "@/assets/product-range.jpg";
@@ -146,6 +147,7 @@ export default function Index() {
 
   return (
     <Layout>
+      <SEO title="Home" description="Aqua Safe Water Technologies - Premium RO, UV, UF water purifiers for home & business. Free installation, best prices in Visakhapatnam. Call +91 9985850777." />
       {/* Hero Slider */}
       <section className="relative h-[350px] md:h-[420px] lg:h-[480px] overflow-hidden">
         {heroSlides.map((slide, i) => (

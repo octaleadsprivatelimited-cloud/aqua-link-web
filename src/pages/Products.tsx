@@ -5,6 +5,7 @@ import { useProductStore } from "@/stores/productStore";
 import { categories } from "@/data/categories";
 import ProductCard from "@/components/products/ProductCard";
 import Layout from "@/components/layout/Layout";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import bgHero from "@/assets/bg-hero-dark.jpg";
@@ -43,6 +44,7 @@ export default function Products() {
 
   return (
     <Layout>
+      <SEO title="Products" description="Explore our range of premium water purifiers, commercial RO plants, UV filters, and accessories." />
       <div className="relative text-primary-foreground py-10 md:py-14 overflow-hidden">
         <img src={bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-navy/80" />
