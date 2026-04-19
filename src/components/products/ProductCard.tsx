@@ -19,22 +19,22 @@ export default function ProductCard({ product }: { product: Product }) {
   };
 
   return (
-    <div className="group bg-card rounded-lg border overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1">
-      <Link to={`/products/${product.slug}`} className="block">
-        <div className="relative aspect-square bg-secondary overflow-hidden">
+    <div className="group bg-card overflow-hidden transition-all duration-300 relative">
+      <Link to={`/products/${product.slug}`} className="block relative z-10">
+        <div className="relative aspect-[4/5] bg-secondary/30 overflow-hidden flex items-center justify-center">
           <img
             src={product.images[0]}
             alt={product.name}
             loading="lazy"
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-cover mix-blend-multiply group-hover:scale-105 transition-transform duration-700"
           />
           {product.price.discount > 0 && (
-            <span className="absolute top-3 left-3 bg-accent text-accent-foreground text-xs font-bold px-2 py-1 rounded-md">
-              -{product.price.discount}%
+            <span className="absolute top-3 left-3 bg-foreground text-background text-[10px] uppercase tracking-wider font-bold px-3 py-1">
+              Save {product.price.discount}%
             </span>
           )}
           {product.stock === "low_stock" && (
-            <span className="absolute top-3 right-3 bg-destructive text-destructive-foreground text-xs font-medium px-2 py-1 rounded-md">
+            <span className="absolute top-3 right-3 bg-secondary text-secondary-foreground text-[10px] uppercase tracking-wider font-medium px-3 py-1">
               Low Stock
             </span>
           )}
@@ -69,17 +69,18 @@ export default function ProductCard({ product }: { product: Product }) {
           )}
         </div>
 
-        <div className="flex gap-2 mt-3">
-          <Button size="sm" variant="outline" className="flex-1 text-xs" onClick={handleAddToCart}>
-            <ShoppingCart className="h-3.5 w-3.5 mr-1" /> Add to Cart
+        <div className="flex flex-col gap-2 mt-4 relative z-10">
+          <Button variant="default" className="w-full rounded-none h-11 text-xs uppercase tracking-wide font-semibold hover:bg-foreground/90 transition-all" onClick={handleAddToCart}>
+            Add to Cart
           </Button>
           <a
             href={`https://wa.me/919985850777?text=${encodeURIComponent(`Hi! I'm interested in ${product.name} (₹${product.price.selling}). Please share details.`)}`}
             target="_blank"
             rel="noopener noreferrer"
+            className="block"
           >
-            <Button size="sm" className="bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90 text-xs">
-              Order
+            <Button variant="outline" className="w-full rounded-none h-11 text-xs uppercase tracking-wide font-semibold border-foreground hover:bg-secondary transition-all">
+              Quick Order via WhatsApp
             </Button>
           </a>
         </div>

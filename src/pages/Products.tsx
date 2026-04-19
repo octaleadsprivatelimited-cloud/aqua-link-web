@@ -22,7 +22,7 @@ export default function Products() {
   useEffect(() => {
     const urlSearch = searchParams.get("search") || "";
     if (urlSearch !== search) setSearch(urlSearch);
-  }, [searchParams]);
+  }, [searchParams, search]);
 
   const filtered = useMemo(() => {
     let result = products.filter((p) => p.stock !== "out_of_stock");
@@ -35,7 +35,7 @@ export default function Products() {
     else if (sort === "price-high") result.sort((a, b) => b.price.selling - a.price.selling);
     else if (sort === "rating") result.sort((a, b) => b.rating - a.rating);
     return result;
-  }, [activeCategory, search, sort]);
+  }, [activeCategory, search, sort, products]);
 
   const setCategory = (slug: string) => {
     if (slug) setSearchParams({ category: slug });

@@ -60,7 +60,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50">
-      <div className="bg-navy/95 backdrop-blur-md border-b border-primary-foreground/5">
+      <div className="bg-[#0B1E36]/95 backdrop-blur-xl border-b border-white/5 shadow-sm supports-[backdrop-filter]:bg-[#0B1E36]/90">
         <div className="container flex items-center justify-between h-16 md:h-[68px]">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 shrink-0 group">
@@ -141,7 +141,7 @@ export default function Header() {
       {/* ===== MEGA DROPDOWN ===== */}
       {megaOpen && (
         <div
-          className="hidden lg:block absolute left-0 right-0 z-50 bg-background border-b border-border shadow-xl animate-fade-in"
+          className="hidden lg:block absolute left-0 right-0 z-50 bg-background/95 backdrop-blur-xl border-b border-border shadow-2xl animate-fade-in supports-[backdrop-filter]:bg-background/80"
           onMouseEnter={openMega}
           onMouseLeave={closeMega}
         >
@@ -219,7 +219,7 @@ export default function Header() {
 
       {/* Mobile search */}
       {searchOpen && (
-        <form onSubmit={(e) => { e.preventDefault(); handleSearch(mobileSearchQuery); }} className="md:hidden bg-navy border-t border-primary-foreground/10 px-4 py-3">
+        <form onSubmit={(e) => { e.preventDefault(); handleSearch(mobileSearchQuery); }} className="md:hidden bg-[#0B1E36] border-t border-primary-foreground/10 px-4 py-3">
           <div className="flex items-center bg-primary-foreground/10 rounded-full px-3 py-2 border border-primary-foreground/20">
             <input
               type="text"
@@ -275,7 +275,7 @@ export default function Header() {
               <Link
                 to="/cart"
                 onClick={() => setMenuOpen(false)}
-                className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-navy text-primary-foreground rounded-lg text-center font-medium"
+                className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-[#0B1E36] text-primary-foreground rounded-lg text-center font-medium hover:bg-[#0B1E36]/90 transition-colors"
               >
                 <ShoppingCart className="h-4 w-4" />
                 View Cart {totalItems > 0 && `(${totalItems})`}
