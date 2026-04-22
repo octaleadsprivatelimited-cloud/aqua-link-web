@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   Package,
@@ -12,7 +13,9 @@ import {
   LogOut,
   ChevronDown,
 } from "lucide-react";
+import { signOut } from "firebase/auth";
 import { Button } from "@/components/ui/button";
+import { auth } from "@/lib/firebase";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/admin" },
@@ -26,6 +29,12 @@ const navItems = [
 export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    navigate("/admin/login", { replace: true });
+  };
 
   return (
     <div className="min-h-screen bg-surface flex">
@@ -67,6 +76,15 @@ export default function AdminLayout() {
           })}
         </nav>
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-primary-foreground/10">
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={handleLogout}
+            className="w-full justify-start gap-2 text-sm text-primary-foreground/50 hover:text-primary-foreground hover:bg-transparent px-0 py-0 h-auto"
+          >
+            <LogOut className="h-4 w-4" />
+            Logout
+          </Button>
           <Link
             to="/"
             className="flex items-center gap-2 text-sm text-primary-foreground/50 hover:text-primary-foreground transition-colors"

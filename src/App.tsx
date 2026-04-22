@@ -15,12 +15,14 @@ import BlogPost from "./pages/BlogPost";
 import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 import AdminLayout from "./components/admin/AdminLayout";
+import RequireAdminAuth from "./components/admin/RequireAdminAuth";
 import AdminDashboard from "./pages/admin/Dashboard";
 import ProductsList from "./pages/admin/ProductsList";
 import ProductForm from "./pages/admin/ProductForm";
 import OrdersPlaceholder from "./pages/admin/OrdersPlaceholder";
 import CustomersPlaceholder from "./pages/admin/CustomersPlaceholder";
 import SettingsPlaceholder from "./pages/admin/SettingsPlaceholder";
+import AdminLogin from "./pages/admin/Login";
 
 const queryClient = new QueryClient();
 
@@ -43,14 +45,17 @@ const App = () => (
             <Route path="/faq" element={<FAQ />} />
 
             {/* Admin Routes */}
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<AdminDashboard />} />
-              <Route path="products" element={<ProductsList />} />
-              <Route path="products/new" element={<ProductForm />} />
-              <Route path="products/edit/:id" element={<ProductForm />} />
-              <Route path="orders" element={<OrdersPlaceholder />} />
-              <Route path="customers" element={<CustomersPlaceholder />} />
-              <Route path="settings" element={<SettingsPlaceholder />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin" element={<RequireAdminAuth />}>
+              <Route element={<AdminLayout />}>
+                <Route index element={<AdminDashboard />} />
+                <Route path="products" element={<ProductsList />} />
+                <Route path="products/new" element={<ProductForm />} />
+                <Route path="products/edit/:id" element={<ProductForm />} />
+                <Route path="orders" element={<OrdersPlaceholder />} />
+                <Route path="customers" element={<CustomersPlaceholder />} />
+                <Route path="settings" element={<SettingsPlaceholder />} />
+              </Route>
             </Route>
 
             <Route path="*" element={<NotFound />} />
