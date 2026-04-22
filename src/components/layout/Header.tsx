@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, ShoppingCart, Search, ChevronDown, ChevronRight, User } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
 import { categories } from "@/data/categories";
+import { useSiteSettingsStore } from "@/stores/siteSettingsStore";
+import { openWhatsAppWithTracking } from "@/lib/whatsapp";
 
 import megaRo from "@/assets/mega-ro.jpg";
 import megaUv from "@/assets/mega-uv.jpg";
@@ -38,6 +40,7 @@ export default function Header() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileSearchQuery, setMobileSearchQuery] = useState("");
+  const settings = useSiteSettingsStore((s) => s.settings);
 
   const handleSearch = (query: string) => {
     if (query.trim()) {
@@ -280,16 +283,13 @@ export default function Header() {
                 <ShoppingCart className="h-4 w-4" />
                 View Cart {totalItems > 0 && `(${totalItems})`}
               </Link>
-              <a
-                href="https://wa.me/919985850777"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block"
+              <button
+                type="button"
+                onClick={() => openWhatsAppWithTracking("Header Mobile Menu", "Hi! I need help choosing a water purifier.")}
+                className="w-full py-3 px-4 bg-whatsapp text-whatsapp-foreground rounded-lg text-center font-medium"
               >
-                <div className="w-full py-3 px-4 bg-whatsapp text-whatsapp-foreground rounded-lg text-center font-medium">
-                  WhatsApp Us — +91 9985850777
-                </div>
-              </a>
+                WhatsApp Us - {settings.phone}
+              </button>
             </div>
           </nav>
         </div>

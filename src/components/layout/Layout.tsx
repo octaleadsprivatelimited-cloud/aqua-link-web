@@ -1,6 +1,7 @@
 import Header from "./Header";
 import Footer from "./Footer";
 import { MessageCircle } from "lucide-react";
+import { openWhatsAppWithTracking } from "@/lib/whatsapp";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -14,16 +15,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Footer />
 
       {/* Floating WhatsApp button */}
-      <a
-        href="https://wa.me/919985850777"
-        target="_blank"
-        rel="noopener noreferrer"
+      <button
+        type="button"
+        onClick={() => openWhatsAppWithTracking("Floating WhatsApp Button", "Hi! I need help with Aqua Safe products.")}
         className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-whatsapp text-whatsapp-foreground shadow-elevated flex items-center justify-center hover:scale-110 hover:shadow-whatsapp/50 transition-all duration-300 group"
         aria-label="Chat on WhatsApp"
       >
         <div className="absolute inset-0 rounded-full bg-whatsapp animate-ping opacity-20 group-hover:opacity-40" />
         <MessageCircle className="h-7 w-7 relative z-10" />
-      </a>
+      </button>
     </div>
   );
 }

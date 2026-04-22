@@ -3,6 +3,7 @@ import { Star, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/stores/cartStore";
 import type { Product } from "@/data/products";
+import { openWhatsAppWithTracking } from "@/lib/whatsapp";
 
 export default function ProductCard({ product }: { product: Product }) {
   const addItem = useCartStore((s) => s.addItem);
@@ -16,6 +17,13 @@ export default function ProductCard({ product }: { product: Product }) {
       originalPrice: product.price.original,
       image: product.images[0],
     });
+  };
+
+  const handleWhatsApp = () => {
+    openWhatsAppWithTracking(
+      `Product Card: ${product.name}`,
+      `Hi! I'm interested in ${product.name} (₹${product.price.selling}). Please share details.`
+    );
   };
 
   return (
@@ -73,16 +81,14 @@ export default function ProductCard({ product }: { product: Product }) {
           <Button variant="default" className="w-full rounded-none h-11 text-xs uppercase tracking-wide font-semibold hover:bg-foreground/90 transition-all" onClick={handleAddToCart}>
             Add to Cart
           </Button>
-          <a
-            href={`https://wa.me/919985850777?text=${encodeURIComponent(`Hi! I'm interested in ${product.name} (₹${product.price.selling}). Please share details.`)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block"
+          <Button
+            type="button"
+            variant="outline"
+            onClick={handleWhatsApp}
+            className="w-full rounded-none h-11 text-xs uppercase tracking-wide font-semibold border-foreground hover:bg-secondary transition-all"
           >
-            <Button variant="outline" className="w-full rounded-none h-11 text-xs uppercase tracking-wide font-semibold border-foreground hover:bg-secondary transition-all">
-              Quick Order via WhatsApp
-            </Button>
-          </a>
+            Quick Order via WhatsApp
+          </Button>
         </div>
       </div>
     </div>

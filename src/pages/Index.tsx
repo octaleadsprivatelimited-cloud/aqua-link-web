@@ -6,6 +6,8 @@ import { useProductStore } from "@/stores/productStore";
 import ProductCard from "@/components/products/ProductCard";
 import Layout from "@/components/layout/Layout";
 import SEO from "@/components/SEO";
+import { useSiteSettingsStore } from "@/stores/siteSettingsStore";
+import { openWhatsAppWithTracking } from "@/lib/whatsapp";
 import heroSlide1 from "@/assets/hero-slide-1.jpg";
 import heroSlide2 from "@/assets/hero-slide-2.jpg";
 import productRange from "@/assets/product-range.jpg";
@@ -96,12 +98,7 @@ const testimonials = [
   },
 ];
 
-const stats = [
-  { icon: Users, value: "10,000+", label: "Happy Customers" },
-  { icon: FlaskConical, value: "98%", label: "Customer Satisfaction" },
-  { icon: Award, value: "10+", label: "Years of Experience" },
-  { icon: UserCheck, value: "50+", label: "Certified Engineers" },
-];
+const statIcons = [Users, FlaskConical, Award, UserCheck];
 
 const faqs = [
   {
@@ -128,6 +125,7 @@ const faqs = [
 
 export default function Index() {
   const products = useProductStore((s) => s.products);
+  const settings = useSiteSettingsStore((s) => s.settings);
   const featured = products.slice(0, 4);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -387,17 +385,20 @@ export default function Index() {
       <section className="py-14 md:py-20 bg-background">
         <div className="container">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((stat, i) => (
+            {settings.homeStats.map((stat, i) => {
+              const StatIcon = statIcons[i] || Users;
+              return (
               <div key={i} className="text-center flex flex-col items-center gap-3 p-6 rounded-2xl bg-surface border border-border">
                 <div className="h-14 w-14 rounded-full bg-accent/10 flex items-center justify-center">
-                  <stat.icon className="h-6 w-6 text-accent" />
+                  <StatIcon className="h-6 w-6 text-accent" />
                 </div>
                 <p className="font-heading font-extrabold text-3xl md:text-4xl text-foreground">
                   {stat.value}
                 </p>
                 <p className="text-xs md:text-sm text-muted-foreground font-medium">{stat.label}</p>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -499,25 +500,23 @@ export default function Index() {
             personalized recommendations.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="https://wa.me/919985850777?text=Hi!%20I%20need%20help%20choosing%20a%20water%20purifier."
-              target="_blank"
-              rel="noopener noreferrer"
+            <Button
+              type="button"
+              size="lg"
+              onClick={() =>
+                openWhatsAppWithTracking("Home CTA", "Hi! I need help choosing a water purifier.")
+              }
+              className="bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90 font-heading font-semibold rounded-full px-8"
             >
-              <Button
-                size="lg"
-                className="bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90 font-heading font-semibold rounded-full px-8"
-              >
-                Chat on WhatsApp
-              </Button>
-            </a>
-            <a href="tel:+919985850777">
+              Chat on WhatsApp
+            </Button>
+            <a href={`tel:${settings.phone.replace(/\s+/g, "")}`}>
               <Button
                 size="lg"
                 variant="outline"
                 className="rounded-full px-8 font-heading font-semibold border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
               >
-                Call +91 9985850777
+                Call {settings.phone}
               </Button>
             </a>
           </div>

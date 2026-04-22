@@ -5,6 +5,7 @@ import { useCartStore } from "@/stores/cartStore";
 import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/products/ProductCard";
 import Layout from "@/components/layout/Layout";
+import { openWhatsAppWithTracking } from "@/lib/whatsapp";
 
 export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -33,6 +34,13 @@ export default function ProductDetail() {
       originalPrice: product.price.original,
       image: product.images[0],
     });
+  };
+
+  const handleWhatsAppOrder = () => {
+    openWhatsAppWithTracking(
+      `Product Detail: ${product.name}`,
+      `Hi! I'd like to order: ${product.name} — ₹${product.price.selling.toLocaleString("en-IN")}. Please share delivery details.`
+    );
   };
 
   return (
@@ -106,16 +114,14 @@ export default function ProductDetail() {
               <Button size="lg" variant="outline" className="flex-1" onClick={handleAddToCart}>
                 <ShoppingCart className="h-4 w-4 mr-2" /> Add to Cart
               </Button>
-              <a
-                href={`https://wa.me/919985850777?text=${encodeURIComponent(`Hi! I'd like to order: ${product.name} — ₹${product.price.selling.toLocaleString("en-IN")}. Please share delivery details.`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1"
+              <Button
+                type="button"
+                size="lg"
+                onClick={handleWhatsAppOrder}
+                className="flex-1 w-full bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90 font-heading font-semibold"
               >
-                <Button size="lg" className="w-full bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90 font-heading font-semibold">
-                  Order on WhatsApp
-                </Button>
-              </a>
+                Order on WhatsApp
+              </Button>
             </div>
 
             {/* Specifications */}

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Youtube, ChevronDown } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import bgFooter from "@/assets/bg-footer.jpg";
+import { useSiteSettingsStore } from "@/stores/siteSettingsStore";
 
 function CollapsibleSection({ title, children }: { title: string; children: React.ReactNode }) {
   const isMobile = useIsMobile();
@@ -36,6 +37,7 @@ function CollapsibleSection({ title, children }: { title: string; children: Reac
 }
 
 export default function Footer() {
+  const settings = useSiteSettingsStore((s) => s.settings);
   return (
     <footer className="relative text-primary-foreground overflow-hidden">
       <img src={bgFooter} alt="" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
@@ -117,20 +119,20 @@ export default function Footer() {
             <ul className="space-y-3 text-sm opacity-70">
               <li className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
-                <span>#7-13-23/2, NH-16 Main Road, Old Gajuwaka, Visakhapatnam - 530026</span>
+                <span>{settings.address}</span>
               </li>
               <li>
-                <a href="tel:+919985850777" className="flex items-center gap-2 hover:opacity-100">
-                  <Phone className="h-4 w-4" /> +91 9985850777
+                <a href={`tel:${settings.phone.replace(/\s+/g, "")}`} className="flex items-center gap-2 hover:opacity-100">
+                  <Phone className="h-4 w-4" /> {settings.phone}
                 </a>
               </li>
               <li>
-                <a href="mailto:info@waterfilterstore.in" className="flex items-center gap-2 hover:opacity-100">
-                  <Mail className="h-4 w-4" /> info@waterfilterstore.in
+                <a href={`mailto:${settings.email}`} className="flex items-center gap-2 hover:opacity-100">
+                  <Mail className="h-4 w-4" /> {settings.email}
                 </a>
               </li>
             </ul>
-            <p className="text-xs opacity-50 mt-4">GSTIN: 37ACHPL4663M1Z2</p>
+            <p className="text-xs opacity-50 mt-4">GSTIN: {settings.gstin}</p>
           </div>
         </div>
       </div>

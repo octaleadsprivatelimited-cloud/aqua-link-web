@@ -23,6 +23,7 @@ import OrdersPlaceholder from "./pages/admin/OrdersPlaceholder";
 import CustomersPlaceholder from "./pages/admin/CustomersPlaceholder";
 import SettingsPlaceholder from "./pages/admin/SettingsPlaceholder";
 import AdminLogin from "./pages/admin/Login";
+import BlogsManager from "./pages/admin/BlogsManager";
 
 const queryClient = new QueryClient();
 
@@ -52,6 +53,7 @@ const App = () => (
                 <Route path="products" element={<ProductsList />} />
                 <Route path="products/new" element={<ProductForm />} />
                 <Route path="products/edit/:id" element={<ProductForm />} />
+                <Route path="blogs" element={<BlogsManager />} />
                 <Route path="orders" element={<OrdersPlaceholder />} />
                 <Route path="customers" element={<CustomersPlaceholder />} />
                 <Route path="settings" element={<SettingsPlaceholder />} />

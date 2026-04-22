@@ -20,9 +20,8 @@ export default function Products() {
   const [sort, setSort] = useState("popular");
 
   useEffect(() => {
-    const urlSearch = searchParams.get("search") || "";
-    if (urlSearch !== search) setSearch(urlSearch);
-  }, [searchParams, search]);
+    setSearch(searchParams.get("search") || "");
+  }, [searchParams]);
 
   const filtered = useMemo(() => {
     let result = products.filter((p) => p.stock !== "out_of_stock");

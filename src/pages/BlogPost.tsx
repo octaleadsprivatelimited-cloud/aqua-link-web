@@ -3,10 +3,11 @@ import { ArrowLeft, Clock, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import bgHero from "@/assets/bg-hero-dark.jpg";
-import { posts } from "@/pages/Blog";
+import { useBlogStore } from "@/stores/blogStore";
 
 export default function BlogPost() {
   const { slug } = useParams();
+  const posts = useBlogStore((s) => s.posts);
   const post = posts.find((p) => p.slug === slug);
 
   if (!post) {
@@ -62,6 +63,9 @@ export default function BlogPost() {
       <section className="py-14 md:py-20">
         <div className="container">
           <div className="max-w-3xl mx-auto">
+            <div className="mb-8 rounded-2xl overflow-hidden border bg-secondary">
+              <img src={post.image} alt={post.title} className="w-full h-64 md:h-80 object-cover" />
+            </div>
             <div className="prose prose-sm md:prose-base max-w-none">
               {post.content.split("\n\n").map((paragraph, i) => {
                 if (paragraph.startsWith("**") && paragraph.endsWith("**")) {
@@ -108,7 +112,9 @@ export default function BlogPost() {
                 {relatedPosts.map((rp) => (
                   <Link to={`/blog/${rp.slug}`} key={rp.id} className="group">
                     <div className="bg-card rounded-2xl border border-border overflow-hidden hover:border-accent/20 hover:shadow-card transition-all duration-300">
-                      <div className="aspect-video bg-secondary" />
+                      <div className="aspect-video bg-secondary">
+                        <img src={rp.image} alt={rp.title} className="h-full w-full object-cover" />
+                      </div>
                       <div className="p-4">
                         <span className="text-xs text-accent font-heading font-semibold">{rp.category}</span>
                         <h3 className="font-heading font-semibold text-sm text-foreground mt-1 line-clamp-2 group-hover:text-accent transition-colors">{rp.title}</h3>

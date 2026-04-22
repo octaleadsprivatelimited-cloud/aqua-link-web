@@ -19,8 +19,8 @@ export const useProductStore = create<ProductStore>()(
       addProduct: (product) =>
         set((state) => ({
           products: [
-            ...state.products,
             { ...product, id: Date.now().toString() },
+            ...state.products,
           ],
         })),
       updateProduct: (id, data) =>

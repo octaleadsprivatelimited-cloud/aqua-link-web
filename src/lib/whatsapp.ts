@@ -1,4 +1,5 @@
-const WHATSAPP_NUMBER = "919985850777";
+import { useEnquiryStore } from "@/stores/enquiryStore";
+import { useSiteSettingsStore } from "@/stores/siteSettingsStore";
 
 export interface CartItem {
   id: string;
@@ -8,7 +9,8 @@ export interface CartItem {
 }
 
 export const generateWhatsAppLink = (message: string) => {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  const number = useSiteSettingsStore.getState().settings.whatsappNumber || "919985850777";
+  return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
 };
 
 export const generateOrderMessage = (
@@ -39,4 +41,9 @@ export const generateOrderMessage = (
 
 export const generateProductEnquiry = (productName: string, price: number) => {
   return `Hi! I'm interested in *${productName}* (₹${price.toLocaleString("en-IN")}). Could you share more details and availability?`;
+};
+
+export const openWhatsAppWithTracking = (source: string, message: string) => {
+  useEnquiryStore.getState().addEnquiry({ source, message });
+  window.open(generateWhatsAppLink(message), "_blank", "noopener,noreferrer");
 };

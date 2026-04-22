@@ -1,24 +1,33 @@
 import { Link } from "react-router-dom";
 import { Minus, Plus, Trash2, ShoppingCart, ArrowLeft } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
-import { generateWhatsAppLink, generateOrderMessage } from "@/lib/whatsapp";
+import { generateOrderMessage, openWhatsAppWithTracking } from "@/lib/whatsapp";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { createOrder } from "@/lib/orders";
 
 export default function Cart() {
   const { items, removeItem, updateQuantity, clearCart, totalPrice } = useCartStore();
   const [step, setStep] = useState<"cart" | "checkout">("cart");
   const [customer, setCustomer] = useState({ name: "", phone: "", address: "" });
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     const message = generateOrderMessage(
       items.map((i) => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity })),
       customer.name ? customer : undefined
     );
-    window.open(generateWhatsAppLink(message), "_blank");
+    try {
+      await createOrder(
+        items.map((i) => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity })),
+        customer.name ? customer : undefined
+      );
+    } catch {
+      // Do not block WhatsApp checkout if Firestore write fails.
+    }
+    openWhatsAppWithTracking("Cart Checkout", message);
   };
 
   if (items.length === 0) {

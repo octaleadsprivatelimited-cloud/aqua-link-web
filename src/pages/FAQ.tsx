@@ -4,6 +4,7 @@ import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import bgHero from "@/assets/bg-hero-dark.jpg";
+import { openWhatsAppWithTracking } from "@/lib/whatsapp";
 
 const faqCategories = [
   {
@@ -111,11 +112,13 @@ export default function FAQ() {
             <h3 className="font-heading font-bold text-xl mb-2">Still Have Questions?</h3>
             <p className="opacity-70 mb-6 text-sm">Our experts are here to help. Reach out anytime!</p>
             <div className="flex flex-wrap justify-center gap-3">
-              <a href="https://wa.me/919985850777" target="_blank" rel="noopener noreferrer">
-                <Button className="bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90 font-heading font-semibold rounded-full px-6">
-                  WhatsApp Us
-                </Button>
-              </a>
+              <Button
+                type="button"
+                onClick={() => openWhatsAppWithTracking("FAQ CTA", "Hi! I have a question about Aqua Safe products.")}
+                className="bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90 font-heading font-semibold rounded-full px-6"
+              >
+                WhatsApp Us
+              </Button>
               <Link to="/contact">
                 <Button variant="outline" className="rounded-full px-6 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-heading font-semibold">
                   Contact Page

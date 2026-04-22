@@ -8,8 +8,10 @@ import Layout from "@/components/layout/Layout";
 import SEO from "@/components/SEO";
 import { toast } from "@/hooks/use-toast";
 import bgHero from "@/assets/bg-hero-dark.jpg";
+import { useSiteSettingsStore } from "@/stores/siteSettingsStore";
 
 export default function Contact() {
+  const settings = useSiteSettingsStore((s) => s.settings);
   const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
   const [sending, setSending] = useState(false);
 
@@ -85,7 +87,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="font-heading font-semibold text-foreground">Address</h4>
-                    <p className="text-sm text-muted-foreground mt-1">#7-13-23/2, NH-16 Main Road, Old Gajuwaka, Visakhapatnam - 530026, Andhra Pradesh</p>
+                    <p className="text-sm text-muted-foreground mt-1">{settings.address}</p>
                   </div>
                 </div>
                 <div className="flex gap-4 items-start">
@@ -94,7 +96,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="font-heading font-semibold text-foreground">Phone</h4>
-                    <a href="tel:+919985850777" className="text-sm text-primary hover:underline mt-1 block">+91 9985850777</a>
+                    <a href={`tel:${settings.phone.replace(/\s+/g, "")}`} className="text-sm text-primary hover:underline mt-1 block">{settings.phone}</a>
                   </div>
                 </div>
                 <div className="flex gap-4 items-start">
@@ -103,7 +105,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="font-heading font-semibold text-foreground">Email</h4>
-                    <a href="mailto:info@waterfilterstore.in" className="text-sm text-primary hover:underline mt-1 block">info@waterfilterstore.in</a>
+                    <a href={`mailto:${settings.email}`} className="text-sm text-primary hover:underline mt-1 block">{settings.email}</a>
                   </div>
                 </div>
                 <div className="flex gap-4 items-start">
@@ -112,8 +114,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="font-heading font-semibold text-foreground">Business Hours</h4>
-                    <p className="text-sm text-muted-foreground mt-1">Mon–Sat: 9:00 AM – 7:00 PM</p>
-                    <p className="text-sm text-muted-foreground">Sunday: 10:00 AM – 2:00 PM</p>
+                    <p className="text-sm text-muted-foreground mt-1">{settings.businessHours}</p>
                   </div>
                 </div>
               </div>

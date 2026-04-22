@@ -29,6 +29,14 @@ const emptyProduct = {
   reviewCount: 0,
 };
 
+const fileToDataUrl = (file: File) =>
+  new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result || ""));
+    reader.onerror = () => reject(new Error("Failed to read image file."));
+    reader.readAsDataURL(file);
+  });
+
 export default function ProductForm() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -39,6 +47,7 @@ export default function ProductForm() {
   const [form, setForm] = useState(emptyProduct);
   const [specKey, setSpecKey] = useState("");
   const [specValue, setSpecValue] = useState("");
+  const [imageError, setImageError] = useState("");
 
   useEffect(() => {
     if (isEdit && id) {
@@ -121,6 +130,10 @@ export default function ProductForm() {
       toast({ title: "Error", description: "Name and SKU are required.", variant: "destructive" });
       return;
     }
+    if (!form.images[0]) {
+      toast({ title: "Error", description: "Product image is required.", variant: "destructive" });
+      return;
+    }
 
     const cleanFeatures = form.features.filter((f) => f.trim());
     const productData = { ...form, features: cleanFeatures };
@@ -134,6 +147,24 @@ export default function ProductForm() {
     }
 
     navigate("/admin/products");
+  };
+
+  const handleImageFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0];
+    if (!selectedFile) return;
+
+    if (!selectedFile.type.startsWith("image/")) {
+      setImageError("Please select a valid image file.");
+      return;
+    }
+
+    try {
+      const dataUrl = await fileToDataUrl(selectedFile);
+      setForm((prev) => ({ ...prev, images: [dataUrl] }));
+      setImageError("");
+    } catch {
+      setImageError("Could not read image. Please try another file.");
+    }
   };
 
   return (
@@ -363,19 +394,21 @@ export default function ProductForm() {
           </CardContent>
         </Card>
 
-        {/* Image URL */}
+        {/* Product Image */}
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Product Image</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <Label htmlFor="imageUrl">Image URL</Label>
+            <Label htmlFor="imageFile">Upload Image</Label>
             <Input
-              id="imageUrl"
-              value={form.images[0]}
-              onChange={(e) => setForm((f) => ({ ...f, images: [e.target.value] }))}
-              placeholder="https://example.com/image.jpg or /placeholder.svg"
+              id="imageFile"
+              type="file"
+              accept="image/*"
+              onChange={handleImageFileChange}
             />
+            <p className="text-xs text-muted-foreground">Only image files are allowed (JPG, PNG, WEBP, etc.).</p>
+            {imageError && <p className="text-sm text-destructive">{imageError}</p>}
             {form.images[0] && (
               <div className="h-32 w-32 bg-surface rounded-lg overflow-hidden mt-2">
                 <img src={form.images[0]} alt="Preview" className="h-full w-full object-cover" />

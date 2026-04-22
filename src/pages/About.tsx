@@ -6,6 +6,7 @@ import SEO from "@/components/SEO";
 import bgHero from "@/assets/bg-hero-dark.jpg";
 import bgCta from "@/assets/bg-cta.jpg";
 import bgPromise from "@/assets/bg-promise.jpg";
+import { openWhatsAppWithTracking } from "@/lib/whatsapp";
 
 const milestones = [
   { year: "2015", title: "Founded", desc: "Started with a mission to provide clean water to every household" },
@@ -171,11 +172,14 @@ export default function About() {
             Talk to our experts for free consultation and find the perfect purifier for your needs.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="https://wa.me/919985850777" target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90 font-heading font-semibold rounded-full px-8">
-                Chat on WhatsApp
-              </Button>
-            </a>
+            <Button
+              type="button"
+              size="lg"
+              onClick={() => openWhatsAppWithTracking("About CTA", "Hi! I need help with Aqua Safe products.")}
+              className="bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90 font-heading font-semibold rounded-full px-8"
+            >
+              Chat on WhatsApp
+            </Button>
             <Link to="/contact">
               <Button size="lg" variant="outline" className="rounded-full px-8 font-heading font-semibold border-foreground text-foreground hover:bg-foreground hover:text-background">
                 Contact Us <ArrowRight className="ml-2 h-4 w-4" />
