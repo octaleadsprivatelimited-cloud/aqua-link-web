@@ -9,6 +9,9 @@ import {
   Users,
   Settings,
   FileText,
+  Image,
+  BarChart3,
+  Layers,
   Menu,
   X,
   LogOut,
@@ -26,6 +29,9 @@ const navItems = [
   { icon: ShoppingCart, label: "Orders", path: "/admin/orders" },
   { icon: Users, label: "Customers", path: "/admin/customers" },
   { icon: Settings, label: "Settings", path: "/admin/settings" },
+  { icon: Image, label: "Hero Images", path: "/admin/settings/hero-images" },
+  { icon: BarChart3, label: "Stats", path: "/admin/settings/stats" },
+  { icon: Layers, label: "Solutions", path: "/admin/settings/solutions" },
 ];
 
 export default function AdminLayout() {

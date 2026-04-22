@@ -24,6 +24,9 @@ import CustomersPlaceholder from "./pages/admin/CustomersPlaceholder";
 import SettingsPlaceholder from "./pages/admin/SettingsPlaceholder";
 import AdminLogin from "./pages/admin/Login";
 import BlogsManager from "./pages/admin/BlogsManager";
+import HeroSettings from "./pages/admin/HeroSettings";
+import StatsSettings from "./pages/admin/StatsSettings";
+import SolutionsSettings from "./pages/admin/SolutionsSettings";
 
 const queryClient = new QueryClient();
 
@@ -57,6 +60,9 @@ const App = () => (
                 <Route path="orders" element={<OrdersPlaceholder />} />
                 <Route path="customers" element={<CustomersPlaceholder />} />
                 <Route path="settings" element={<SettingsPlaceholder />} />
+                <Route path="settings/hero-images" element={<HeroSettings />} />
+                <Route path="settings/stats" element={<StatsSettings />} />
+                <Route path="settings/solutions" element={<SolutionsSettings />} />
               </Route>
             </Route>
 

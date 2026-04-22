@@ -4,6 +4,12 @@ import { ArrowLeft, Plus, X, Save } from "lucide-react";
 import { useProductStore } from "@/stores/productStore";
 import { categories } from "@/data/categories";
 import type { Product } from "@/data/products";
+import {
+  categorySkuPrefix,
+  defaultFeatureOptions,
+  defaultSpecificationOptions,
+} from "@/data/productDefaults";
+import { useSiteSettingsStore } from "@/stores/siteSettingsStore";
 
 type StockStatus = "in_stock" | "low_stock" | "out_of_stock";
 import { Button } from "@/components/ui/button";
@@ -20,6 +26,7 @@ const emptyProduct = {
   category: "ro-purifiers",
   description: "",
   features: [""],
+  solutions: [] as string[],
   specifications: {} as Record<string, string>,
   price: { selling: 0, original: 0, discount: 0 },
   images: ["/placeholder.svg"],
@@ -42,11 +49,15 @@ export default function ProductForm() {
   const navigate = useNavigate();
   const { products, addProduct, updateProduct } = useProductStore();
   const { toast } = useToast();
+  const settings = useSiteSettingsStore((s) => s.settings);
   const isEdit = Boolean(id);
 
   const [form, setForm] = useState(emptyProduct);
   const [specKey, setSpecKey] = useState("");
   const [specValue, setSpecValue] = useState("");
+  const [featureOption, setFeatureOption] = useState(defaultFeatureOptions[0]);
+  const [solutionOption, setSolutionOption] = useState(settings.productSolutions[0] || "");
+  const [specOption, setSpecOption] = useState(defaultSpecificationOptions[0].key);
   const [imageError, setImageError] = useState("");
 
   useEffect(() => {
@@ -60,6 +71,7 @@ export default function ProductForm() {
           category: product.category,
           description: product.description,
           features: product.features.length > 0 ? product.features : [""],
+          solutions: product.solutions || [],
           specifications: { ...product.specifications },
           price: { ...product.price },
           images: [...product.images],
@@ -72,6 +84,18 @@ export default function ProductForm() {
     }
   }, [isEdit, id, products]);
 
+  useEffect(() => {
+    if (!isEdit && !form.sku) {
+      setForm((current) => ({ ...current, sku: getNextSku(current.category) }));
+    }
+  }, [isEdit, form.sku, form.category, products]);
+
+  useEffect(() => {
+    if (!solutionOption && settings.productSolutions.length > 0) {
+      setSolutionOption(settings.productSolutions[0]);
+    }
+  }, [solutionOption, settings.productSolutions]);
+
   const generateSlug = (name: string) =>
     name
       .toLowerCase()
@@ -80,6 +104,16 @@ export default function ProductForm() {
 
   const handleNameChange = (name: string) => {
     setForm((f) => ({ ...f, name, slug: generateSlug(name) }));
+  };
+
+  const getNextSku = (categorySlug: string) => {
+    const prefix = categorySkuPrefix[categorySlug] || "ASW-PRD";
+    const maxSequence = products.reduce((max, product) => {
+      const match = product.sku.match(new RegExp(`^${prefix}-(\\d+)$`));
+      if (!match) return max;
+      return Math.max(max, Number(match[1]));
+    }, 0);
+    return `${prefix}-${String(maxSequence + 1).padStart(3, "0")}`;
   };
 
   const handlePriceChange = (field: "selling" | "original", value: number) => {
@@ -101,8 +135,23 @@ export default function ProductForm() {
   };
 
   const addFeature = () => setForm((f) => ({ ...f, features: [...f.features, ""] }));
+  const addFeatureFromDropdown = () =>
+    setForm((f) => {
+      if (f.features.includes(featureOption)) return f;
+      return { ...f, features: [...f.features.filter(Boolean), featureOption] };
+    });
   const removeFeature = (index: number) =>
     setForm((f) => ({ ...f, features: f.features.filter((_, i) => i !== index) }));
+
+  const addSolution = () =>
+    setForm((f) => {
+      if (!solutionOption) return f;
+      if (f.solutions?.includes(solutionOption)) return f;
+      return { ...f, solutions: [...(f.solutions || []), solutionOption] };
+    });
+
+  const removeSolution = (index: number) =>
+    setForm((f) => ({ ...f, solutions: (f.solutions || []).filter((_, i) => i !== index) }));
 
   const addSpec = () => {
     if (specKey.trim() && specValue.trim()) {
@@ -113,6 +162,18 @@ export default function ProductForm() {
       setSpecKey("");
       setSpecValue("");
     }
+  };
+
+  const addSpecFromDropdown = () => {
+    const selected = defaultSpecificationOptions.find((item) => item.key === specOption);
+    if (!selected) return;
+    setForm((f) => ({
+      ...f,
+      specifications: {
+        ...f.specifications,
+        [selected.key]: f.specifications[selected.key] || selected.value,
+      },
+    }));
   };
 
   const removeSpec = (key: string) => {
@@ -210,6 +271,11 @@ export default function ProductForm() {
                   placeholder="e.g. ASW-RO-009"
                   required
                 />
+                {!isEdit && (
+                  <p className="text-xs text-muted-foreground">
+                    SKU ordering is auto-generated by category. You can edit it manually if needed.
+                  </p>
+                )}
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -227,7 +293,13 @@ export default function ProductForm() {
                 <select
                   id="category"
                   value={form.category}
-                  onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
+                  onChange={(e) =>
+                    setForm((f) => ({
+                      ...f,
+                      category: e.target.value,
+                      sku: isEdit ? f.sku : getNextSku(e.target.value),
+                    }))
+                  }
                   className="h-10 w-full rounded-md border bg-background px-3 text-sm"
                 >
                   {categories.map((cat) => (
@@ -334,6 +406,22 @@ export default function ProductForm() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
+            <div className="flex gap-2">
+              <select
+                value={featureOption}
+                onChange={(e) => setFeatureOption(e.target.value)}
+                className="h-10 w-full rounded-md border bg-background px-3 text-sm"
+              >
+                {defaultFeatureOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+              <Button type="button" variant="outline" onClick={addFeatureFromDropdown}>
+                Add Default
+              </Button>
+            </div>
             {form.features.map((feature, i) => (
               <div key={i} className="flex gap-2">
                 <Input
@@ -351,12 +439,65 @@ export default function ProductForm() {
           </CardContent>
         </Card>
 
+        {/* Solutions */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Solutions</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex gap-2">
+              <select
+                value={solutionOption}
+                onChange={(e) => setSolutionOption(e.target.value)}
+                className="h-10 w-full rounded-md border bg-background px-3 text-sm"
+              >
+                {settings.productSolutions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+              <Button type="button" variant="outline" onClick={addSolution}>
+                Add
+              </Button>
+            </div>
+            {(form.solutions || []).length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {(form.solutions || []).map((solution, index) => (
+                  <span key={`${solution}-${index}`} className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs">
+                    {solution}
+                    <button type="button" onClick={() => removeSolution(index)}>
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
         {/* Specifications */}
         <Card>
           <CardHeader>
             <CardTitle className="text-base">Specifications</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
+            <div className="flex gap-2">
+              <select
+                value={specOption}
+                onChange={(e) => setSpecOption(e.target.value)}
+                className="h-10 w-full rounded-md border bg-background px-3 text-sm"
+              >
+                {defaultSpecificationOptions.map((option) => (
+                  <option key={option.key} value={option.key}>
+                    {option.key}
+                  </option>
+                ))}
+              </select>
+              <Button type="button" variant="outline" onClick={addSpecFromDropdown}>
+                Add Default
+              </Button>
+            </div>
             <div className="flex gap-2">
               <Input
                 value={specKey}

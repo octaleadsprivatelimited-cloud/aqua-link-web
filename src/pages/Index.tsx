@@ -11,10 +11,6 @@ import { openWhatsAppWithTracking } from "@/lib/whatsapp";
 import heroSlide1 from "@/assets/hero-slide-1.jpg";
 import heroSlide2 from "@/assets/hero-slide-2.jpg";
 import productRange from "@/assets/product-range.jpg";
-import catHome from "@/assets/cat-home.jpg";
-import catCommercial from "@/assets/cat-commercial.jpg";
-import catUv from "@/assets/cat-uv.jpg";
-import catFilters from "@/assets/cat-filters.jpg";
 import bgPromise from "@/assets/bg-promise.jpg";
 import bgCta from "@/assets/bg-cta.jpg";
 
@@ -39,33 +35,6 @@ const quickActions = [
   { icon: Wrench, label: "Schedule Service", link: "/contact" },
   { icon: Package, label: "Explore Products", link: "/products" },
   { icon: Calendar, label: "Book a Demo", link: "/contact" },
-];
-
-const solutionCategories = [
-  {
-    image: catHome,
-    title: "Home Water Solutions",
-    desc: "Clean water, happy home. Choose the ideal filter for your family.",
-    link: "/products?category=ro-purifiers",
-  },
-  {
-    image: catCommercial,
-    title: "Commercial Water Solutions",
-    desc: "Enhance purity, elevate performance. Solutions for your commercial needs.",
-    link: "/products?category=commercial",
-  },
-  {
-    image: catUv,
-    title: "UV Water Purifiers",
-    desc: "Advanced UV technology for safe, mineral-rich drinking water.",
-    link: "/products?category=uv-purifiers",
-  },
-  {
-    image: catFilters,
-    title: "Filters & Accessories",
-    desc: "Replacement filters, membranes, and maintenance kits.",
-    link: "/products?category=filters-cartridges",
-  },
 ];
 
 const trustBadges = [
@@ -156,7 +125,11 @@ export default function Index() {
             }`}
           >
             <img
-              src={slide.image}
+              src={
+                i === 0
+                  ? settings.heroImages.homeSlide1 || slide.image
+                  : settings.heroImages.homeSlide2 || slide.image
+              }
               alt={slide.title}
               width={1920}
               height={800}
@@ -233,7 +206,7 @@ export default function Index() {
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {solutionCategories.map((cat) => (
+            {settings.homepageSolutions.map((cat) => (
               <Link
                 key={cat.title}
                 to={cat.link}

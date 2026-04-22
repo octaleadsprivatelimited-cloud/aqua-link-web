@@ -1,9 +1,30 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import catHome from "@/assets/cat-home.jpg";
+import catCommercial from "@/assets/cat-commercial.jpg";
+import catUv from "@/assets/cat-uv.jpg";
+import catFilters from "@/assets/cat-filters.jpg";
 
 export interface SiteStat {
   label: string;
   value: string;
+}
+
+export interface HeroImageSettings {
+  homeSlide1: string;
+  homeSlide2: string;
+  products: string;
+  about: string;
+  contact: string;
+  blog: string;
+  faq: string;
+}
+
+export interface SolutionCard {
+  title: string;
+  desc: string;
+  link: string;
+  image: string;
 }
 
 export interface SiteSettings {
@@ -14,6 +35,10 @@ export interface SiteSettings {
   businessHours: string;
   gstin: string;
   homeStats: SiteStat[];
+  aboutStats: SiteStat[];
+  heroImages: HeroImageSettings;
+  productSolutions: string[];
+  homepageSolutions: SolutionCard[];
 }
 
 interface SiteSettingsStore {
@@ -34,14 +59,91 @@ const defaultSettings: SiteSettings = {
     { label: "Years of Experience", value: "10+" },
     { label: "Certified Engineers", value: "50+" },
   ],
+  aboutStats: [
+    { label: "Happy Customers", value: "10,000+" },
+    { label: "Products", value: "50+" },
+    { label: "Years Experience", value: "10+" },
+    { label: "Average Rating", value: "4.7★" },
+  ],
+  heroImages: {
+    homeSlide1: "",
+    homeSlide2: "",
+    products: "",
+    about: "",
+    contact: "",
+    blog: "",
+    faq: "",
+  },
+  productSolutions: [
+    "Home Water Solution",
+    "Commercial Water Solution",
+    "High TDS Water",
+    "Municipal Water",
+    "Borewell Water",
+    "Hot and Cold Dispensing",
+  ],
+  homepageSolutions: [
+    {
+      title: "Home Water Solutions",
+      desc: "Clean water, happy home. Choose the ideal filter for your family.",
+      link: "/products?category=ro-purifiers",
+      image: catHome,
+    },
+    {
+      title: "Commercial Water Solutions",
+      desc: "Enhance purity, elevate performance. Solutions for your commercial needs.",
+      link: "/products?category=commercial",
+      image: catCommercial,
+    },
+    {
+      title: "Industrial Water Solutions",
+      desc: "High-capacity solutions designed for demanding industrial purification needs.",
+      link: "/products?category=uv-purifiers",
+      image: catUv,
+    },
+    {
+      title: "Filters & Accessories",
+      desc: "Replacement filters, membranes, and maintenance kits.",
+      link: "/products?category=filters-cartridges",
+      image: catFilters,
+    },
+  ],
 };
+
+const normalizeSettings = (settings?: Partial<SiteSettings>): SiteSettings => ({
+  ...defaultSettings,
+  ...settings,
+  homeStats: settings?.homeStats?.length ? settings.homeStats : defaultSettings.homeStats,
+  aboutStats: settings?.aboutStats?.length ? settings.aboutStats : defaultSettings.aboutStats,
+  heroImages: {
+    ...defaultSettings.heroImages,
+    ...(settings?.heroImages || {}),
+  },
+  productSolutions:
+    settings?.productSolutions?.length
+      ? settings.productSolutions
+      : defaultSettings.productSolutions,
+  homepageSolutions:
+    settings?.homepageSolutions?.length
+      ? settings.homepageSolutions
+      : defaultSettings.homepageSolutions,
+});
 
 export const useSiteSettingsStore = create<SiteSettingsStore>()(
   persist(
     (set) => ({
       settings: defaultSettings,
-      updateSettings: (data) => set({ settings: data }),
+      updateSettings: (data) => set({ settings: normalizeSettings(data) }),
     }),
-    { name: "aquasafe-site-settings" }
+    {
+      name: "aquasafe-site-settings",
+      version: 3,
+      migrate: (persistedState) => {
+        const state = persistedState as { settings?: Partial<SiteSettings> } | undefined;
+        return {
+          settings: normalizeSettings(state?.settings),
+        };
+      },
+    }
   )
 );

@@ -9,9 +9,11 @@ import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import bgHero from "@/assets/bg-hero-dark.jpg";
+import { useSiteSettingsStore } from "@/stores/siteSettingsStore";
 
 export default function Products() {
   const products = useProductStore((s) => s.products);
+  const settings = useSiteSettingsStore((s) => s.settings);
   const [searchParams, setSearchParams] = useSearchParams();
   const initialSearch = searchParams.get("search") || "";
   const [search, setSearch] = useState(initialSearch);
@@ -45,7 +47,7 @@ export default function Products() {
     <Layout>
       <SEO title="Products" description="Explore our range of premium water purifiers, commercial RO plants, UV filters, and accessories." />
       <div className="relative text-primary-foreground py-10 md:py-14 overflow-hidden">
-        <img src={bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <img src={settings.heroImages.products || bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-navy/80" />
         <div className="container relative z-10">
           <nav className="text-sm mb-4 opacity-70">

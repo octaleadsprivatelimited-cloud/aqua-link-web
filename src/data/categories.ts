@@ -18,9 +18,9 @@ export const categories: Category[] = [
   },
   {
     id: "2",
-    name: "UV Water Purifiers",
+    name: "Industrial Water Solutions",
     slug: "uv-purifiers",
-    description: "UV purifiers ideal for low TDS municipal water supply",
+    description: "Industrial-grade water solutions for high-demand applications",
     icon: "☀️",
     productCount: 8,
   },

@@ -7,9 +7,10 @@ import bgHero from "@/assets/bg-hero-dark.jpg";
 import bgCta from "@/assets/bg-cta.jpg";
 import bgPromise from "@/assets/bg-promise.jpg";
 import { openWhatsAppWithTracking } from "@/lib/whatsapp";
+import { useSiteSettingsStore } from "@/stores/siteSettingsStore";
 
 const milestones = [
-  { year: "2015", title: "Founded", desc: "Started with a mission to provide clean water to every household" },
+  { year: "2006", title: "Founded", desc: "Started with a mission to provide clean water to every household" },
   { year: "2018", title: "1,000+ Installations", desc: "Crossed 1,000 water purifier installations across AP" },
   { year: "2020", title: "Commercial Expansion", desc: "Launched commercial RO plant division for businesses" },
   { year: "2024", title: "10,000+ Customers", desc: "Trusted by over 10,000 families and businesses" },
@@ -22,13 +23,16 @@ const values = [
   { icon: Clock, title: "Swift Service", desc: "Same-day installation and responsive after-sales support." },
 ];
 
+const aboutStatIcons = [Users, Award, Clock, Droplets];
+
 export default function About() {
+  const settings = useSiteSettingsStore((s) => s.settings);
   return (
     <Layout>
-      <SEO title="About Us" description="Learn about Aqua Safe Water Technologies, our mission, vision, and dedication to providing clean and safe water solutions since 2015." />
+      <SEO title="About Us" description="Learn about Aqua Safe Water Technologies, our mission, vision, and dedication to providing clean and safe water solutions since 2006." />
       {/* Hero */}
       <section className="relative text-primary-foreground py-10 md:py-14 overflow-hidden">
-        <img src={bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <img src={settings.heroImages.about || bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-navy/80" />
         <div className="container relative z-10">
           <nav className="text-sm mb-6 opacity-60 font-medium">
@@ -42,7 +46,7 @@ export default function About() {
               Pure Water, <span className="text-accent">Healthy Lives</span>
             </h1>
             <p className="opacity-80 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
-              Dedicated to providing clean, safe, and healthy water solutions for homes and businesses across India since 2015.
+              Dedicated to providing clean, safe, and healthy water solutions for homes and businesses across India since 2006.
             </p>
           </div>
         </div>
@@ -55,14 +59,14 @@ export default function About() {
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
               <div className="lg:col-span-3">
                 <p className="text-foreground leading-relaxed text-base md:text-lg mb-5">
-                  <strong className="font-heading text-foreground">Aqua Safe Water Technologies</strong> is a leading water purification solutions provider based in Visakhapatnam, Andhra Pradesh. Since our founding in 2015, we have been committed to ensuring every family has access to pure, healthy drinking water.
+                  <strong className="font-heading text-foreground">Aqua Safe Water Technologies</strong> is a leading water purification solutions provider based in Visakhapatnam, Andhra Pradesh. Since our founding in 2006, we have been committed to ensuring every family has access to pure, healthy drinking water.
                 </p>
                 <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
                   We offer a comprehensive range of water purifiers — from advanced RO+UV+UF systems for homes to industrial-grade commercial plants for businesses. Our expert team provides end-to-end service including consultation, installation, maintenance, and 24/7 support.
                 </p>
               </div>
               <div className="lg:col-span-2 space-y-3">
-                {["ISI & ISO Certified Products", "Free Installation & Delivery", "24/7 Customer Support", "2 Year Warranty on All Products"].map((item, i) => (
+                {["ISI & ISO Certified Products", "Free Installation & Delivery", "24/7 Customer Support", "1 Year Warranty on All Products"].map((item, i) => (
                   <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-surface border border-border">
                     <CheckCircle className="h-5 w-5 text-accent shrink-0" />
                     <span className="text-sm font-medium text-foreground">{item}</span>
@@ -144,20 +148,18 @@ export default function About() {
         <div className="absolute inset-0 bg-navy/85" />
         <div className="container relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { icon: Users, num: "10,000+", label: "Happy Customers" },
-              { icon: Award, num: "50+", label: "Products" },
-              { icon: Clock, num: "10+", label: "Years Experience" },
-              { icon: Droplets, num: "4.7★", label: "Average Rating" },
-            ].map((s, i) => (
+            {settings.aboutStats.map((s, i) => {
+              const StatIcon = aboutStatIcons[i] || Users;
+              return (
               <div key={i} className="text-center flex flex-col items-center gap-3 p-6">
                 <div className="h-14 w-14 rounded-full bg-primary-foreground/10 border border-primary-foreground/20 flex items-center justify-center">
-                  <s.icon className="h-6 w-6" />
+                  <StatIcon className="h-6 w-6" />
                 </div>
-                <p className="font-heading font-extrabold text-3xl md:text-4xl">{s.num}</p>
+                <p className="font-heading font-extrabold text-3xl md:text-4xl">{s.value}</p>
                 <p className="text-xs md:text-sm opacity-60 font-medium">{s.label}</p>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

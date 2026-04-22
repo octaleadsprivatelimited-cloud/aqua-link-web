@@ -6,6 +6,7 @@ export interface Product {
   category: string;
   description: string;
   features: string[];
+  solutions?: string[];
   specifications: Record<string, string>;
   price: {
     selling: number;

@@ -4,17 +4,19 @@ import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import bgHero from "@/assets/bg-hero-dark.jpg";
 import { useBlogStore } from "@/stores/blogStore";
+import { useSiteSettingsStore } from "@/stores/siteSettingsStore";
 
 export default function BlogPost() {
   const { slug } = useParams();
   const posts = useBlogStore((s) => s.posts);
+  const settings = useSiteSettingsStore((s) => s.settings);
   const post = posts.find((p) => p.slug === slug);
 
   if (!post) {
     return (
       <Layout>
         <section className="relative text-primary-foreground py-10 md:py-14 overflow-hidden">
-          <img src={bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          <img src={settings.heroImages.blog || bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-navy/80" />
           <div className="container text-center relative z-10">
             <h1 className="font-heading font-bold text-2xl md:text-4xl">Post Not Found</h1>
@@ -39,7 +41,7 @@ export default function BlogPost() {
   return (
     <Layout>
       <section className="relative text-primary-foreground py-10 md:py-14 overflow-hidden">
-        <img src={bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <img src={settings.heroImages.blog || bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-navy/80" />
         <div className="container relative z-10">
           <nav className="text-sm mb-4 opacity-60 font-medium">

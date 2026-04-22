@@ -10,15 +10,6 @@ export default function SettingsPlaceholder() {
   const { settings, updateSettings } = useSiteSettingsStore();
   const [form, setForm] = useState(settings);
 
-  const updateStat = (index: number, key: "label" | "value", value: string) => {
-    setForm((current) => ({
-      ...current,
-      homeStats: current.homeStats.map((item, idx) =>
-        idx === index ? { ...item, [key]: value } : item
-      ),
-    }));
-  };
-
   const handleSave = (event: React.FormEvent) => {
     event.preventDefault();
     updateSettings(form);
@@ -28,7 +19,7 @@ export default function SettingsPlaceholder() {
     <div className="space-y-6">
       <div>
         <h2 className="font-heading font-bold text-2xl text-foreground">Settings</h2>
-        <p className="text-sm text-muted-foreground">Manage contact details and home-page stats.</p>
+        <p className="text-sm text-muted-foreground">Manage contact and business details.</p>
       </div>
 
       <form onSubmit={handleSave} className="space-y-6">
@@ -66,28 +57,6 @@ export default function SettingsPlaceholder() {
               <Label htmlFor="gstin">GSTIN</Label>
               <Input id="gstin" value={form.gstin} onChange={(event) => setForm((c) => ({ ...c, gstin: event.target.value }))} />
             </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Home Stats</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {form.homeStats.map((item, index) => (
-              <div key={index} className="grid grid-cols-2 gap-3">
-                <Input
-                  value={item.label}
-                  onChange={(event) => updateStat(index, "label", event.target.value)}
-                  placeholder="Label"
-                />
-                <Input
-                  value={item.value}
-                  onChange={(event) => updateStat(index, "value", event.target.value)}
-                  placeholder="Value"
-                />
-              </div>
-            ))}
           </CardContent>
         </Card>
 

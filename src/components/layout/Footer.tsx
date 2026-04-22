@@ -56,7 +56,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-sm opacity-70 leading-relaxed mb-4">
-              Providing clean, safe, and healthy water solutions for homes and businesses across India since 2015.
+              Providing clean, safe, and healthy water solutions for homes and businesses across India since 2006.
             </p>
             <div className="flex items-center gap-3 mt-4">
               <a href="https://www.facebook.com/share/v/1D86G96Zaf/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors">
@@ -98,7 +98,7 @@ export default function Footer() {
             <ul className="space-y-2.5 text-sm opacity-70">
               {[
                 { label: "RO Purifiers", slug: "ro-purifiers" },
-                { label: "UV Purifiers", slug: "uv-purifiers" },
+                { label: "Industrial Water Solutions", slug: "uv-purifiers" },
                 { label: "Gravity Purifiers", slug: "gravity-purifiers" },
                 { label: "Filters & Cartridges", slug: "filters-cartridges" },
                 { label: "Commercial Plants", slug: "commercial" },
@@ -139,7 +139,7 @@ export default function Footer() {
 
       <div className="border-t border-primary-foreground/10 relative z-10">
         <div className="container py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs opacity-50">
-          <p>© {new Date().getFullYear()} Aqua Safe Water Technologies. All rights reserved.</p>
+          <p>© 2006 Aqua Safe Water Technologies. All rights reserved.</p>
           <p>
             Developed by{" "}
             <a href="https://www.octaleads.com" target="_blank" rel="noopener noreferrer" className="underline hover:opacity-100">

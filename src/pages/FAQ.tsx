@@ -5,13 +5,14 @@ import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import bgHero from "@/assets/bg-hero-dark.jpg";
 import { openWhatsAppWithTracking } from "@/lib/whatsapp";
+import { useSiteSettingsStore } from "@/stores/siteSettingsStore";
 
 const faqCategories = [
   {
     name: "Water Purification",
     faqs: [
       { q: "What is the difference between RO, UV, and UF purification?", a: "RO (Reverse Osmosis) removes dissolved impurities and heavy metals, making it ideal for high TDS water. UV (Ultraviolet) kills bacteria and viruses but doesn't remove dissolved solids. UF (Ultrafiltration) removes bacteria and larger particles without electricity. Many modern purifiers combine all three for comprehensive purification." },
-      { q: "How do I know which purifier is right for my home?", a: "It depends on your water source and TDS level. For municipal/corporation water (TDS < 200), a UV purifier is sufficient. For borewell or tanker water (TDS 200-2000), an RO purifier is recommended. For very high TDS water, an RO+UV+UF combination is ideal. Contact us for a free water quality assessment!" },
+      { q: "How do I know which purifier is right for my home?", a: "It depends on your water source and TDS level. For municipal/corporation water (TDS < 200), an industrial water solution is sufficient. For borewell or tanker water (TDS 200-2000), an RO purifier is recommended. For very high TDS water, an RO+UV+UF combination is ideal. Contact us for a free water quality assessment!" },
       { q: "What is TDS and why does it matter?", a: "TDS (Total Dissolved Solids) measures the concentration of dissolved substances in water, including minerals, salts, and metals. While some minerals are beneficial, high TDS water can taste bad and may contain harmful substances. The ideal TDS for drinking water is 50-150 ppm." },
       { q: "Is RO water safe for babies?", a: "Yes, RO purified water is safe for babies. It removes harmful contaminants while some models retain essential minerals. Always ensure your purifier has a mineralizer or TDS controller to maintain healthy mineral levels." },
     ],
@@ -77,10 +78,11 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 }
 
 export default function FAQ() {
+  const settings = useSiteSettingsStore((s) => s.settings);
   return (
     <Layout>
       <section className="relative text-primary-foreground py-10 md:py-14 overflow-hidden">
-        <img src={bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <img src={settings.heroImages.faq || bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-navy/80" />
         <div className="container text-center relative z-10">
           <nav className="text-sm mb-4 opacity-60 font-medium">

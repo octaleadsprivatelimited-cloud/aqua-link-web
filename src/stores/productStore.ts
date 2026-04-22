@@ -12,21 +12,26 @@ interface ProductStore {
   getFeaturedProducts: () => Product[];
 }
 
+const sortBySku = (items: Product[]) =>
+  [...items].sort((a, b) => a.sku.localeCompare(b.sku, undefined, { numeric: true }));
+
 export const useProductStore = create<ProductStore>()(
   persist(
     (set, get) => ({
-      products: defaultProducts,
+      products: sortBySku(defaultProducts),
       addProduct: (product) =>
         set((state) => ({
-          products: [
-            { ...product, id: Date.now().toString() },
+          products: sortBySku([
             ...state.products,
-          ],
+            { ...product, id: Date.now().toString() },
+          ]),
         })),
       updateProduct: (id, data) =>
         set((state) => ({
-          products: state.products.map((p) =>
-            p.id === id ? { ...p, ...data } : p
+          products: sortBySku(
+            state.products.map((p) =>
+              p.id === id ? { ...p, ...data } : p
+            )
           ),
         })),
       deleteProduct: (id) =>

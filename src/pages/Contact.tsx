@@ -29,7 +29,7 @@ export default function Contact() {
     <Layout>
       <SEO title="Contact Us" description="Get in touch with Aqua Safe Water Technologies. We offer 24/7 customer support and free consultation for your water purification needs." />
       <div className="relative text-primary-foreground py-10 md:py-14 overflow-hidden">
-        <img src={bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <img src={settings.heroImages.contact || bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-navy/80" />
         <div className="container relative z-10">
           <nav className="text-sm mb-4 opacity-70">
