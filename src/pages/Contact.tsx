@@ -36,7 +36,7 @@ export default function Contact() {
 
   return (
     <Layout>
-      <SEO title="Contact Us" description="Get in touch with Aqua Safe Water Technologies. We offer 24/7 customer support and free consultation for your water purification needs." />
+      <SEO title="Contact Us" description="Get in touch with WaterFilterStore. We offer 24/7 customer support and free consultation for your water purification needs." />
       <div className="relative text-primary-foreground py-10 md:py-14 overflow-hidden">
         <img src={settings.heroImages.contact || bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-navy/80" />
@@ -137,7 +137,7 @@ export default function Contact() {
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
-                  title="Aqua Safe Location"
+                  title="WaterFilterStore Location"
                 />
               </div>
             </div>

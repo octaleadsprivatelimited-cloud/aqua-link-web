@@ -258,7 +258,7 @@ export default function ProductForm() {
                   id="name"
                   value={form.name}
                   onChange={(e) => handleNameChange(e.target.value)}
-                  placeholder="e.g. Aqua Safe RO Purifier"
+                  placeholder="e.g. WaterFilterStore RO Purifier"
                   required
                 />
               </div>

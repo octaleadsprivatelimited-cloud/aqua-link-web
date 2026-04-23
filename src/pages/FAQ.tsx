@@ -116,7 +116,7 @@ export default function FAQ() {
             <div className="flex flex-wrap justify-center gap-3">
               <Button
                 type="button"
-                onClick={() => openWhatsAppWithTracking("FAQ CTA", "Hi! I have a question about Aqua Safe products.")}
+                onClick={() => openWhatsAppWithTracking("FAQ CTA", "Hi! I have a question about WaterFilterStore products.")}
                 className="bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90 font-heading font-semibold rounded-full px-6"
               >
                 WhatsApp Us

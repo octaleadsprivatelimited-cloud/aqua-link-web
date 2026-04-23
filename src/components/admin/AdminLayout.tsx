@@ -54,7 +54,7 @@ export default function AdminLayout() {
       >
         <div className="flex items-center justify-between p-4 border-b border-primary-foreground/10">
           <Link to="/admin" className="font-heading font-bold text-lg">
-            🛡️ Aqua Safe Admin
+            🛡️ WaterFilterStore Admin
           </Link>
           <button
             onClick={() => setSidebarOpen(false)}

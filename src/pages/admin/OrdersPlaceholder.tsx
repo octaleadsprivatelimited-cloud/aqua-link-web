@@ -95,7 +95,7 @@ function buildInvoiceHtml(order: OrderDoc, settings: SiteSettings) {
   return `<!DOCTYPE html>
 <html><head><meta charset="utf-8"/><title>Invoice ${esc(order.id)}</title></head>
 <body style="font-family:system-ui,sans-serif;max-width:720px;margin:24px auto;color:#111;">
-  <h1 style="font-size:22px;margin:0 0 4px;">Aqua Safe Water Technologies</h1>
+  <h1 style="font-size:22px;margin:0 0 4px;">WaterFilterStore</h1>
   <p style="margin:0 0 16px;font-size:13px;color:#444;">${esc(settings.address)}</p>
   <p style="margin:0 0 4px;font-size:13px;"><strong>Phone:</strong> ${esc(settings.phone)}</p>
   <p style="margin:0 0 4px;font-size:13px;"><strong>Email:</strong> ${esc(settings.email)}</p>

@@ -72,7 +72,7 @@ export default function Header() {
             </div>
             <div className="hidden sm:block">
               <p className="font-heading font-bold text-primary-foreground text-[15px] leading-tight tracking-tight">
-                Aqua Safe
+                WaterFilterStore
               </p>
               <p className="text-[10px] text-primary-foreground/50 leading-tight tracking-wide uppercase">
                 Water Technologies

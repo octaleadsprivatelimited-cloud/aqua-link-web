@@ -28,7 +28,7 @@ export default function About() {
   const settings = useSiteSettingsStore((s) => s.settings);
   return (
     <Layout>
-      <SEO title="About Us" description="Learn about Aqua Safe Water Technologies, our mission, vision, and dedication to providing clean and safe water solutions since 2006." />
+      <SEO title="About Us" description="Learn about WaterFilterStore, our mission, vision, and dedication to providing clean and safe water solutions since 2006." />
       {/* Hero */}
       <section className="relative text-primary-foreground py-10 md:py-14 overflow-hidden">
         <img src={settings.heroImages.about || bgHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
@@ -58,7 +58,7 @@ export default function About() {
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
               <div className="lg:col-span-3">
                 <p className="text-foreground leading-relaxed text-base md:text-lg mb-5">
-                  <strong className="font-heading text-foreground">Aqua Safe Water Technologies</strong> is a leading water purification solutions provider based in Visakhapatnam, Andhra Pradesh. Since our founding in 2006, we have been committed to ensuring every family has access to pure, healthy drinking water.
+                  <strong className="font-heading text-foreground">WaterFilterStore</strong> is a leading water purification solutions provider based in Visakhapatnam, Andhra Pradesh. Since our founding in 2006, we have been committed to ensuring every family has access to pure, healthy drinking water.
                 </p>
                 <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
                   We offer a comprehensive range of water purifiers — from advanced RO+UV+UF systems for homes to industrial-grade commercial plants for businesses. Our expert team provides end-to-end service including consultation, installation, maintenance, and 24/7 support.
@@ -185,7 +185,7 @@ export default function About() {
             <Button
               type="button"
               size="lg"
-              onClick={() => openWhatsAppWithTracking("About CTA", "Hi! I need help with Aqua Safe products.")}
+              onClick={() => openWhatsAppWithTracking("About CTA", "Hi! I need help with WaterFilterStore products.")}
               className="bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90 font-heading font-semibold rounded-full px-8"
             >
               Chat on WhatsApp

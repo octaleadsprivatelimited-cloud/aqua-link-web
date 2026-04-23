@@ -23,7 +23,7 @@ export interface Product {
 export const products: Product[] = [
   {
     id: "1",
-    name: "Aqua Safe RO + UV + UF Water Purifier",
+    name: "WaterFilterStore RO + UV + UF Water Purifier",
     slug: "aqua-safe-ro-uv-uf-purifier",
     sku: "ASW-RO-001",
     category: "ro-purifiers",
@@ -54,7 +54,7 @@ export const products: Product[] = [
   },
   {
     id: "2",
-    name: "Aqua Safe Ultra UV Water Purifier",
+    name: "WaterFilterStore Ultra UV Water Purifier",
     slug: "aqua-safe-ultra-uv-purifier",
     sku: "ASW-UV-002",
     category: "uv-purifiers",
@@ -84,7 +84,7 @@ export const products: Product[] = [
   },
   {
     id: "3",
-    name: "Aqua Safe Alkaline RO Water Purifier",
+    name: "WaterFilterStore Alkaline RO Water Purifier",
     slug: "aqua-safe-alkaline-ro-purifier",
     sku: "ASW-ALK-003",
     category: "ro-purifiers",
@@ -114,7 +114,7 @@ export const products: Product[] = [
   },
   {
     id: "4",
-    name: "Aqua Safe Gravity Water Purifier",
+    name: "WaterFilterStore Gravity Water Purifier",
     slug: "aqua-safe-gravity-purifier",
     sku: "ASW-GRV-004",
     category: "gravity-purifiers",
@@ -199,7 +199,7 @@ export const products: Product[] = [
   },
   {
     id: "7",
-    name: "Aqua Safe Commercial RO Plant 25 LPH",
+    name: "WaterFilterStore Commercial RO Plant 25 LPH",
     slug: "commercial-ro-plant-25lph",
     sku: "ASW-COM-007",
     category: "commercial",

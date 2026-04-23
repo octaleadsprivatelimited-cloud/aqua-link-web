@@ -56,7 +56,7 @@ const testimonials = [
   {
     name: "Priya Sharma",
     location: "Hyderabad",
-    text: "Very professional installation and the purifier works perfectly. The alkaline feature is amazing for health. Highly recommend Aqua Safe!",
+    text: "Very professional installation and the purifier works perfectly. The alkaline feature is amazing for health. Highly recommend WaterFilterStore!",
     rating: 5,
   },
   {
@@ -75,20 +75,20 @@ const faqs = [
     a: "Tap water can have impurities like bacteria, viruses, chemicals, or heavy metals. A purifier ensures your water is clean and safe for drinking.",
   },
   {
-    q: "What are the benefits of Aqua Safe water purifiers?",
-    a: "Aqua Safe water purifiers remove impurities from tap water, improve water quality, and ensure your family drinks safe and healthy water with essential minerals retained.",
+    q: "What are the benefits of WaterFilterStore water purifiers?",
+    a: "WaterFilterStore water purifiers remove impurities from tap water, improve water quality, and ensure your family drinks safe and healthy water with essential minerals retained.",
   },
   {
     q: "Can I install the purifier myself?",
-    a: "Professional installation is recommended to ensure it works perfectly. Aqua Safe offers free expert installation services with every purchase.",
+    a: "Professional installation is recommended to ensure it works perfectly. WaterFilterStore offers free expert installation services with every purchase.",
   },
   {
     q: "Is the purifier suitable for all water sources?",
-    a: "Aqua Safe offers a range of purifiers suitable for all water sources like municipal water, bore well, or tankers. Our products handle various impurities ensuring clean and safe drinking water.",
+    a: "WaterFilterStore offers a range of purifiers suitable for all water sources like municipal water, bore well, or tankers. Our products handle various impurities ensuring clean and safe drinking water.",
   },
   {
-    q: "Does Aqua Safe offer customer support?",
-    a: "Absolutely! Aqua Safe provides excellent after-sales support, including installation, servicing, and troubleshooting with dedicated customer service.",
+    q: "Does WaterFilterStore offer customer support?",
+    a: "Absolutely! WaterFilterStore provides excellent after-sales support, including installation, servicing, and troubleshooting with dedicated customer service.",
   },
 ];
 
@@ -114,7 +114,7 @@ export default function Index() {
 
   return (
     <Layout>
-      <SEO title="Home" description="Aqua Safe Water Technologies - Premium RO, UV, UF water purifiers for home & business. Free installation, best prices in Visakhapatnam. Call +91 9985851237." />
+      <SEO title="Home" description="WaterFilterStore - Premium RO, UV, UF water purifiers for home & business. Free installation, best prices in Visakhapatnam. Call +91 9985851237." />
       {/* Hero Slider */}
       <section className="relative h-[350px] md:h-[420px] lg:h-[480px] overflow-hidden">
         {heroSlides.map((slide, i) => (
@@ -327,7 +327,7 @@ export default function Index() {
           <div className="text-center mb-12">
             <p className="text-accent font-heading font-semibold text-sm uppercase tracking-wider mb-2">Our Promise</p>
             <h2 className="font-heading font-bold text-2xl md:text-4xl">
-              Why Choose Aqua Safe?
+              Why Choose WaterFilterStore?
             </h2>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">

@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Floating WhatsApp button */}
       <button
         type="button"
-        onClick={() => openWhatsAppWithTracking("Floating WhatsApp Button", "Hi! I need help with Aqua Safe products.")}
+        onClick={() => openWhatsAppWithTracking("Floating WhatsApp Button", "Hi! I need help with WaterFilterStore products.")}
         className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-whatsapp text-whatsapp-foreground shadow-elevated flex items-center justify-center hover:scale-110 hover:shadow-whatsapp/50 transition-all duration-300 group"
         aria-label="Chat on WhatsApp"
       >

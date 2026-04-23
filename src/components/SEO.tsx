@@ -7,7 +7,7 @@ interface SEOProps {
   type?: string;
 }
 
-export default function SEO({ title, description, name = "Aqua Safe Water Technologies", type = "website" }: SEOProps) {
+export default function SEO({ title, description, name = "WaterFilterStore", type = "website" }: SEOProps) {
   return (
     <Helmet>
       {/* Standard metadata tags */}

@@ -56,7 +56,7 @@ export default function Footer() {
                 <span className="text-navy font-heading font-bold text-lg">A</span>
               </div>
               <div>
-                <p className="font-heading font-bold text-sm">Aqua Safe</p>
+                <p className="font-heading font-bold text-sm">WaterFilterStore</p>
                 <p className="text-[10px] opacity-60">Water Technologies</p>
               </div>
             </div>
@@ -143,14 +143,32 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-primary-foreground/10 relative z-10">
-        <div className="container py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs opacity-50">
-          <p>© 2006 Aqua Safe Water Technologies. All rights reserved.</p>
-          <p>
-            Developed by{" "}
-            <a href="https://www.octaleads.com" target="_blank" rel="noopener noreferrer" className="underline hover:opacity-100">
-              Octaleads Pvt Ltd
+        <div className="container py-4 text-xs opacity-50">
+          <p className="hidden sm:block text-center">
+            © 2006 WaterFilterStore. All rights reserved. | Powered by Aqua Safe Water Technologies | Developed by{" "}
+            <a
+              href="https://www.octaleads.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:opacity-100"
+            >
+              Octaleads
             </a>
           </p>
+          <div className="sm:hidden flex flex-col items-center gap-1 text-center">
+            <p>© 2006 WaterFilterStore. All rights reserved.</p>
+            <p>
+              Powered by Aqua Safe Water Technologies | Developed by{" "}
+              <a
+                href="https://www.octaleads.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:opacity-100"
+              >
+                Octaleads
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
