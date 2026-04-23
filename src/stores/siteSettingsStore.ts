@@ -18,6 +18,7 @@ export interface HeroImageSettings {
   contact: string;
   blog: string;
   faq: string;
+  footer: string;
 }
 
 export interface SolutionCard {
@@ -47,8 +48,8 @@ interface SiteSettingsStore {
 }
 
 const defaultSettings: SiteSettings = {
-  phone: "+91 9985850777",
-  whatsappNumber: "919985850777",
+  phone: "+91 9985851237",
+  whatsappNumber: "919985851237",
   email: "info@waterfilterstore.in",
   address: "#7-13-23/2, NH-16 Main Road, Old Gajuwaka, Visakhapatnam - 530026, Andhra Pradesh",
   businessHours: "Mon-Sat: 9:00 AM - 7:00 PM | Sunday: 10:00 AM - 2:00 PM",
@@ -73,6 +74,7 @@ const defaultSettings: SiteSettings = {
     contact: "",
     blog: "",
     faq: "",
+    footer: "",
   },
   productSolutions: [
     "Home Water Solution",
@@ -137,11 +139,18 @@ export const useSiteSettingsStore = create<SiteSettingsStore>()(
     }),
     {
       name: "aquasafe-site-settings",
-      version: 3,
+      version: 5,
       migrate: (persistedState) => {
         const state = persistedState as { settings?: Partial<SiteSettings> } | undefined;
+        const raw: Partial<SiteSettings> = { ...(state?.settings || {}) };
+        if (raw.phone?.includes("9985850777")) {
+          raw.phone = defaultSettings.phone;
+        }
+        if (raw.whatsappNumber === "919985850777") {
+          raw.whatsappNumber = defaultSettings.whatsappNumber;
+        }
         return {
-          settings: normalizeSettings(state?.settings),
+          settings: normalizeSettings(raw),
         };
       },
     }

@@ -114,7 +114,7 @@ export default function Index() {
 
   return (
     <Layout>
-      <SEO title="Home" description="Aqua Safe Water Technologies - Premium RO, UV, UF water purifiers for home & business. Free installation, best prices in Visakhapatnam. Call +91 9985850777." />
+      <SEO title="Home" description="Aqua Safe Water Technologies - Premium RO, UV, UF water purifiers for home & business. Free installation, best prices in Visakhapatnam. Call +91 9985851237." />
       {/* Hero Slider */}
       <section className="relative h-[350px] md:h-[420px] lg:h-[480px] overflow-hidden">
         {heroSlides.map((slide, i) => (
@@ -487,7 +487,7 @@ export default function Index() {
               <Button
                 size="lg"
                 variant="outline"
-                className="rounded-full px-8 font-heading font-semibold border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
+                className="rounded-full px-8 font-heading font-semibold border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
               >
                 Call {settings.phone}
               </Button>

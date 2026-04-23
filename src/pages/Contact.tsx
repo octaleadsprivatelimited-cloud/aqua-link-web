@@ -9,20 +9,29 @@ import SEO from "@/components/SEO";
 import { toast } from "@/hooks/use-toast";
 import bgHero from "@/assets/bg-hero-dark.jpg";
 import { useSiteSettingsStore } from "@/stores/siteSettingsStore";
+import { persistContactEnquiry } from "@/lib/enquiries";
 
 export default function Contact() {
   const settings = useSiteSettingsStore((s) => s.settings);
   const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
   const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSending(true);
-    setTimeout(() => {
-      setSending(false);
-      toast({ title: "Message Sent!", description: "We'll get back to you within 24 hours." });
+    try {
+      await persistContactEnquiry(form);
+      toast({ title: "Message sent", description: "We'll get back to you within 24 hours." });
       setForm({ name: "", email: "", phone: "", subject: "", message: "" });
-    }, 1000);
+    } catch {
+      toast({
+        title: "Could not send message",
+        description: "Please try again or call us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setSending(false);
+    }
   };
 
   return (

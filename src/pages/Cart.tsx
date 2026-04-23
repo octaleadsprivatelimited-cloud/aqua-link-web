@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Minus, Plus, Trash2, ShoppingCart, ArrowLeft } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
-import { generateOrderMessage, openWhatsAppWithTracking } from "@/lib/whatsapp";
+import { generateOrderMessage, redirectToWhatsAppWithTracking } from "@/lib/whatsapp";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import { useState } from "react";
@@ -14,20 +14,29 @@ export default function Cart() {
   const [step, setStep] = useState<"cart" | "checkout">("cart");
   const [customer, setCustomer] = useState({ name: "", phone: "", address: "" });
 
-  const handleCheckout = async () => {
-    const message = generateOrderMessage(
-      items.map((i) => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity })),
-      customer.name ? customer : undefined
-    );
-    try {
-      await createOrder(
-        items.map((i) => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity })),
-        customer.name ? customer : undefined
-      );
-    } catch {
-      // Do not block WhatsApp checkout if Firestore write fails.
-    }
-    openWhatsAppWithTracking("Cart Checkout", message);
+  const handleCheckout = () => {
+    const orderItems = items.map((i) => ({
+      id: i.id,
+      name: i.name,
+      price: i.price,
+      quantity: i.quantity,
+      slug: i.slug,
+    }));
+    const hasCustomer = [customer.name, customer.phone, customer.address].some((v) => v.trim());
+    const customerPayload = hasCustomer ? customer : undefined;
+    const message = generateOrderMessage(orderItems, customerPayload, {
+      siteOrigin: typeof window !== "undefined" ? window.location.origin : "",
+    });
+
+    void createOrder(
+      orderItems.map(({ id, name, price, quantity }) => ({ id, name, price, quantity })),
+      customerPayload
+    ).catch(() => {
+      // Best-effort; checkout still continues to WhatsApp.
+    });
+
+    clearCart();
+    redirectToWhatsAppWithTracking("Cart Checkout", message);
   };
 
   if (items.length === 0) {
@@ -104,9 +113,12 @@ export default function Cart() {
                 </div>
               </div>
               <Button size="lg" className="w-full mt-6 bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90 font-heading font-semibold" onClick={handleCheckout}>
-                Order via WhatsApp
+                Place order on WhatsApp
               </Button>
-              <Button variant="ghost" size="sm" className="w-full mt-2 text-destructive" onClick={clearCart}>
+              <Button type="button" variant="outline" size="sm" className="w-full mt-2 font-medium" onClick={() => setStep("checkout")}>
+                Add delivery details first (optional)
+              </Button>
+              <Button variant="ghost" size="sm" className="w-full mt-1 text-destructive" onClick={clearCart}>
                 Clear Cart
               </Button>
             </div>

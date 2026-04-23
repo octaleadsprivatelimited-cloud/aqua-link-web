@@ -38,10 +38,15 @@ function CollapsibleSection({ title, children }: { title: string; children: Reac
 
 export default function Footer() {
   const settings = useSiteSettingsStore((s) => s.settings);
+  const footerBackground = settings.heroImages.footer || bgFooter;
   return (
-    <footer className="relative text-primary-foreground overflow-hidden">
-      <img src={bgFooter} alt="" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-      <div className="absolute inset-0 bg-navy/90" />
+    <footer className="relative overflow-hidden text-primary-foreground">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${footerBackground})` }}
+      />
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-navy/88" />
       <div className="container py-12 md:py-16 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
           {/* Brand */}

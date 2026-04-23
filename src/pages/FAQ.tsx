@@ -31,7 +31,7 @@ const faqCategories = [
     faqs: [
       { q: "How often should I service my water purifier?", a: "We recommend servicing every 6 months. This includes filter replacement, sanitization, and performance testing. Regular maintenance ensures your purifier works efficiently and provides safe water." },
       { q: "What does the annual maintenance contract (AMC) include?", a: "Our AMC includes 2 scheduled visits per year, filter and membrane replacements, complete sanitization, water quality testing, and priority support. AMC customers get 15% discount on spare parts." },
-      { q: "How do I schedule a service visit?", a: "You can schedule a service visit by calling us at +91 9985850777, messaging on WhatsApp, or filling out the service request form on our Contact page. We typically respond within 2 hours during business hours." },
+      { q: "How do I schedule a service visit?", a: "You can schedule a service visit by calling us at +91 9985851237, messaging on WhatsApp, or filling out the service request form on our Contact page. We typically respond within 2 hours during business hours." },
       { q: "What is the cost of filter replacement?", a: "Filter replacement costs vary by model. Pre-filters cost ₹200-500, carbon filters ₹400-800, and RO membranes ₹1,500-3,000. We use only genuine parts to ensure optimal performance. AMC customers get discounted rates." },
     ],
   },
@@ -41,13 +41,13 @@ const faqCategories = [
       { q: "What does the warranty cover?", a: "Our comprehensive warranty covers manufacturing defects, motor/pump failures, and electrical issues. It does not cover consumables like filters, cartridges, and membranes, which need periodic replacement." },
       { q: "How do I claim warranty?", a: "To claim warranty, contact us with your purchase details and product serial number. Our team will verify the warranty status and arrange for inspection or repair within 48 hours. Keep your original invoice for warranty claims." },
       { q: "What is the cost of annual maintenance?", a: "Annual maintenance costs vary by model. For RO+UV systems, it typically ranges from ₹2,000 to ₹4,000 including filters and labor. We offer annual maintenance contracts (AMC) at discounted rates." },
-      { q: "Do you provide emergency repair services?", a: "Yes, we provide emergency repair services for critical issues. Contact our helpline at +91 9985850777 for urgent support. Emergency visits are available within 4-6 hours in Visakhapatnam." },
+      { q: "Do you provide emergency repair services?", a: "Yes, we provide emergency repair services for critical issues. Contact our helpline at +91 9985851237 for urgent support. Emergency visits are available within 4-6 hours in Visakhapatnam." },
     ],
   },
   {
     name: "Ordering & Delivery",
     faqs: [
-      { q: "How do I place an order?", a: "You can order through our website by adding products to your cart and completing the checkout via WhatsApp. Alternatively, call us at +91 9985850777 or send a WhatsApp message directly. Our team will confirm your order and arrange delivery." },
+      { q: "How do I place an order?", a: "You can order through our website by adding products to your cart and completing the checkout via WhatsApp. Alternatively, call us at +91 9985851237 or send a WhatsApp message directly. Our team will confirm your order and arrange delivery." },
       { q: "What are the payment options?", a: "We accept UPI, bank transfer, cash on delivery, and EMI options for select products. Payment details will be shared via WhatsApp after order confirmation." },
       { q: "Do you deliver outside Visakhapatnam?", a: "Yes! We deliver across Andhra Pradesh, Telangana, and other states. Delivery within Visakhapatnam is free. For other locations, shipping charges may apply based on distance and product size." },
       { q: "Can I return or exchange a product?", a: "Yes, we offer a 7-day return policy for unopened products in original packaging. For exchanges, contact us within 15 days of purchase. Custom or installed products may have different terms — please check at the time of purchase." },
@@ -122,7 +122,10 @@ export default function FAQ() {
                 WhatsApp Us
               </Button>
               <Link to="/contact">
-                <Button variant="outline" className="rounded-full px-6 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-heading font-semibold">
+                <Button
+                  variant="outline"
+                  className="rounded-full px-6 border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground font-heading font-semibold"
+                >
                   Contact Page
                 </Button>
               </Link>

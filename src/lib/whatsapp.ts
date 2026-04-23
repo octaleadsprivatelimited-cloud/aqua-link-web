@@ -1,4 +1,4 @@
-import { useEnquiryStore } from "@/stores/enquiryStore";
+import { persistWhatsAppEnquiry } from "@/lib/enquiries";
 import { useSiteSettingsStore } from "@/stores/siteSettingsStore";
 
 export interface CartItem {
@@ -6,35 +6,51 @@ export interface CartItem {
   name: string;
   price: number;
   quantity: number;
+  slug?: string;
 }
 
 export const generateWhatsAppLink = (message: string) => {
-  const number = useSiteSettingsStore.getState().settings.whatsappNumber || "919985850777";
+  const number = useSiteSettingsStore.getState().settings.whatsappNumber || "919985851237";
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
 };
 
 export const generateOrderMessage = (
   items: CartItem[],
-  customerInfo?: { name: string; phone: string; address: string }
+  customerInfo?: { name: string; phone: string; address: string },
+  options?: { siteOrigin?: string }
 ) => {
+  const origin =
+    options?.siteOrigin ||
+    (typeof window !== "undefined" ? window.location.origin : "");
+
   const itemLines = items
-    .map((item) => `• ${item.name} x${item.quantity} — ₹${(item.price * item.quantity).toLocaleString("en-IN")}`)
-    .join("\n");
+    .map((item) => {
+      const lineTotal = item.price * item.quantity;
+      let line = `• ${item.name}\n   Qty: ${item.quantity} × ₹${item.price.toLocaleString("en-IN")} = ₹${lineTotal.toLocaleString("en-IN")}`;
+      if (item.slug && origin) {
+        line += `\n   ${origin}/products/${item.slug}`;
+      }
+      return line;
+    })
+    .join("\n\n");
 
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  let message = `🛒 *New Order from Aqua Safe Water Technologies*\n\n`;
-  message += `*Order Items:*\n${itemLines}\n\n`;
-  message += `*Total: ₹${total.toLocaleString("en-IN")}*\n`;
+  let message = `🛒 *New order — Aqua Safe Water Technologies*\n\n`;
+  message += `*Items*\n${itemLines}\n\n`;
+  message += `*Order total: ₹${total.toLocaleString("en-IN")}*\n`;
 
   if (customerInfo) {
-    message += `\n*Customer Details:*\n`;
-    message += `Name: ${customerInfo.name}\n`;
-    message += `Phone: ${customerInfo.phone}\n`;
-    message += `Address: ${customerInfo.address}\n`;
+    const { name, phone, address } = customerInfo;
+    if (name.trim() || phone.trim() || address.trim()) {
+      message += `\n*Delivery / contact*\n`;
+      if (name.trim()) message += `Name: ${name.trim()}\n`;
+      if (phone.trim()) message += `Phone: ${phone.trim()}\n`;
+      if (address.trim()) message += `Address:\n${address.trim()}\n`;
+    }
   }
 
-  message += `\nPlease confirm the order and share payment details. Thank you! 🙏`;
+  message += `\nPlease confirm availability and share payment / delivery details. Thank you! 🙏`;
 
   return message;
 };
@@ -44,6 +60,12 @@ export const generateProductEnquiry = (productName: string, price: number) => {
 };
 
 export const openWhatsAppWithTracking = (source: string, message: string) => {
-  useEnquiryStore.getState().addEnquiry({ source, message });
+  void persistWhatsAppEnquiry(source, message).catch(() => {});
   window.open(generateWhatsAppLink(message), "_blank", "noopener,noreferrer");
+};
+
+/** Same-window navigation — use after async work so WhatsApp is not blocked as a popup. */
+export const redirectToWhatsAppWithTracking = (source: string, message: string) => {
+  void persistWhatsAppEnquiry(source, message).catch(() => {});
+  window.location.assign(generateWhatsAppLink(message));
 };

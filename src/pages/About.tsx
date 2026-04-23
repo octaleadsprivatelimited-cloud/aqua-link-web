@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
-import { Target, Eye, Award, Users, Droplets, Shield, Clock, ArrowRight, CheckCircle } from "lucide-react";
+import { Target, Eye, Users, Droplets, Shield, Clock, ArrowRight, CheckCircle, Star, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import SEO from "@/components/SEO";
 import bgHero from "@/assets/bg-hero-dark.jpg";
 import bgCta from "@/assets/bg-cta.jpg";
-import bgPromise from "@/assets/bg-promise.jpg";
 import { openWhatsAppWithTracking } from "@/lib/whatsapp";
 import { useSiteSettingsStore } from "@/stores/siteSettingsStore";
 
@@ -23,7 +22,7 @@ const values = [
   { icon: Clock, title: "Swift Service", desc: "Same-day installation and responsive after-sales support." },
 ];
 
-const aboutStatIcons = [Users, Award, Clock, Droplets];
+const aboutStatIcons = [Users, Package, Clock, Star] as const;
 
 export default function About() {
   const settings = useSiteSettingsStore((s) => s.settings);
@@ -143,21 +142,30 @@ export default function About() {
       </section>
 
       {/* Stats */}
-      <section className="py-14 md:py-20 relative text-primary-foreground overflow-hidden">
-        <img src={bgPromise} alt="" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-        <div className="absolute inset-0 bg-navy/85" />
-        <div className="container relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <section className="border-y border-border bg-muted/50 py-14 md:py-20">
+        <div className="container">
+          <div className="mx-auto mb-10 max-w-5xl text-center md:mb-12">
+            <p className="mb-2 font-heading text-sm font-semibold uppercase tracking-wider text-accent">Our impact</p>
+            <h2 className="font-heading text-2xl font-bold text-foreground md:text-3xl">Trusted by families across India</h2>
+          </div>
+          <div className="mx-auto grid max-w-5xl grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
             {settings.aboutStats.map((s, i) => {
-              const StatIcon = aboutStatIcons[i] || Users;
+              const StatIcon = aboutStatIcons[i] ?? Users;
               return (
-              <div key={i} className="text-center flex flex-col items-center gap-3 p-6">
-                <div className="h-14 w-14 rounded-full bg-primary-foreground/10 border border-primary-foreground/20 flex items-center justify-center">
-                  <StatIcon className="h-6 w-6" />
+                <div
+                  key={`${s.label}-${i}`}
+                  className="group flex flex-col items-center rounded-2xl border border-border bg-card px-4 py-7 text-center shadow-card transition-all duration-300 hover:border-accent/25 hover:shadow-card-hover sm:px-6 sm:py-9"
+                >
+                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 text-accent ring-1 ring-accent/15 transition-colors group-hover:bg-accent/15">
+                    <StatIcon className="h-7 w-7" aria-hidden />
+                  </div>
+                  <p className="font-heading text-2xl font-extrabold leading-none tracking-tight text-foreground sm:text-3xl md:text-4xl">
+                    {s.value}
+                  </p>
+                  <p className="mt-3 max-w-[11rem] text-xs font-medium leading-snug text-muted-foreground sm:max-w-none sm:text-sm">
+                    {s.label}
+                  </p>
                 </div>
-                <p className="font-heading font-extrabold text-3xl md:text-4xl">{s.value}</p>
-                <p className="text-xs md:text-sm opacity-60 font-medium">{s.label}</p>
-              </div>
               );
             })}
           </div>
@@ -169,8 +177,8 @@ export default function About() {
         <img src={bgCta} alt="" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
         <div className="absolute inset-0 bg-navy/80" />
         <div className="container text-center relative z-10 text-primary-foreground">
-          <h2 className="font-heading font-bold text-2xl md:text-4xl text-foreground mb-3">Ready to Get Pure Water?</h2>
-          <p className="text-muted-foreground mb-8 max-w-lg mx-auto text-sm">
+          <h2 className="font-heading font-bold text-2xl md:text-4xl mb-3">Ready to Get Pure Water?</h2>
+          <p className="text-primary-foreground/70 mb-8 max-w-lg mx-auto text-sm">
             Talk to our experts for free consultation and find the perfect purifier for your needs.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
@@ -183,7 +191,11 @@ export default function About() {
               Chat on WhatsApp
             </Button>
             <Link to="/contact">
-              <Button size="lg" variant="outline" className="rounded-full px-8 font-heading font-semibold border-foreground text-foreground hover:bg-foreground hover:text-background">
+              <Button
+                size="lg"
+                variant="outline"
+                className="rounded-full px-8 font-heading font-semibold border-primary-foreground/30 text-primary-foreground bg-transparent hover:bg-primary-foreground/10 hover:text-primary-foreground"
+              >
                 Contact Us <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>

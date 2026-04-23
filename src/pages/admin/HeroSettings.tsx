@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import heroSlide1 from "@/assets/hero-slide-1.jpg";
 import heroSlide2 from "@/assets/hero-slide-2.jpg";
 import bgHero from "@/assets/bg-hero-dark.jpg";
+import bgFooter from "@/assets/bg-footer.jpg";
 
 export default function HeroSettings() {
   const { settings, updateSettings } = useSiteSettingsStore();
@@ -21,6 +22,7 @@ export default function HeroSettings() {
       { key: "contact", label: "Contact Hero", fallback: bgHero },
       { key: "blog", label: "Blog Hero", fallback: bgHero },
       { key: "faq", label: "FAQ Hero", fallback: bgHero },
+      { key: "footer", label: "Footer background", fallback: bgFooter },
     ],
     []
   );
